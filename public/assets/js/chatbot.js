@@ -84,7 +84,7 @@ function setBotResponceImg(val) {
 
 async function callToApi(text) {
   data = {
-    sender: "test_user",
+    sender: sess.email,
     message: text,
   };
   url = "https://eritodypimrnlu.herokuapp.com/webhooks/rest/webhook";
@@ -160,6 +160,8 @@ function closeChat() {
 	document.getElementById("openChat").style.display = "none";
 	document.getElementById("popup").style.display = "block";
 	setBotResponce("/stop");
+	var ul1 = document.getElementById('msgul');
+  	ul1.innerHTML=' ';
   }
 
 function cleartext(){
