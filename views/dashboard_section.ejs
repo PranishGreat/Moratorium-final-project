@@ -1,0 +1,89 @@
+<style>
+.e:hover{
+   background-color:rgb(90, 90, 187);
+}
+.f:hover{
+   background-color:rgb(182, 137, 137);
+}
+.g:hover{
+   background-color:rgb(43, 40, 40);
+}
+.h:hover{
+   background-color:rgb(73, 192, 73);
+}
+</style>
+<section id="main-content">
+    <section class="wrapper">
+      <!--overview start-->
+      <div class="row">
+        <div class="col-lg-12">
+          <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <a href="/pending">
+            <div class="info-box blue-bg e">
+              <i class="fa fa-thumb-tack"></i>
+              <div class="count"><%= pending_count %></div>
+              <div class="title">Pending Requests</div>
+            </div>
+          </a>
+          <!--/.info-box-->
+        </div>
+        <!--/.col-->
+
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <a href="/approved">
+            <div class="info-box brown-bg f">
+              <i class="fa fa-thumbs-o-up"></i>
+              <div class="count"><%= approved_count %></div>
+              <div class="title">Approved Requests</div>
+            </div>
+          </a>
+          <!--/.info-box-->
+        </div>
+        <!--/.col-->
+
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <a href="/rejected">
+            <div class="info-box dark-bg g">
+              <i class="fa fa-thumbs-o-down"></i>
+              <div class="count"><%= rejected_count %></div>
+              <div class="title">Rejected Requests</div>
+            </div>
+          </a>
+          <!--/.info-box-->
+        </div>
+        <!--/.col-->
+
+        <!-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <div class="info-box green-bg">
+            <i class="fa fa-cubes"></i>
+            <div class="count"><%= user_count %></div>
+            <div class="title">Users</div>
+          </div> -->
+          <!--/.info-box-->
+        <!-- </div> -->
+        <!--/.col-->
+
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <a href="/admin_contact">
+            <div class="info-box green-bg h">
+              <i class="fa fa-phone-square"></i>
+              <div class="count"><%= contact_count %></div>
+              <div class="title">Contact Requests</div>
+            </div>
+          </a>
+          <!--/.info-box-->
+        </div>
+        <!--/.col-->
+
+      </div>
+      <!--/.row-->
+
+
+    </section>
+   
+  </section>

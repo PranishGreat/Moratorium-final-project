@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <!-- Include Head Section which consits all the links of css -->
+  <%- include('admin_head_section.ejs') %>
+<style>
+.modal-dialog {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto;
+}
+@media(max-width: 768px) {
+  .modal-dialog {
+    min-height: calc(100vh - 20px);
+  }
+}
+</style>
+<body>
+  <!-- container section start -->
+  <section id="container" class="">
+    
+    <!--header start-->
+    <%- include('admin_header_section.ejs') %>
+    <!--header end-->
+
+    <!--sidebar start-->
+    <%- include('sidebar_section.ejs') %>
+    <!--sidebar end-->
+
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+          <div class="row">
+            <div class="col-lg-12">
+              <h3 class="page-header"><i class="fa fa-table"></i> <%=status%></h3>
+            </div>
+          </div>
+          <!-- page start-->
+          <div class="row">
+            <div class="col-lg-12">
+              <section class="panel">
+                <header class="panel-heading">
+                  Advanced Table
+                </header>
+                <% if(details!=null) { %>
+                <table class="table table-striped table-advance table-hover">
+                    <tr>
+                      <th><i class="icon_profile"></i> Account No </th>
+                      <th><i class="icon_calendar"></i> Loan No</th>
+                      <th><i class="icon_mail_alt"></i> Income</th>
+                      <th><i class="icon_mail_alt"></i> Month</th>
+                      <th><i class="icon_pin_alt"></i> Status</th>
+                      <th><i class="icon_cogs"></i> Action</th>
+                    </tr>
+                    <% var i=1; details.forEach(function(item){ %>
+                    <tr id=<%= i %>>
+                      <td><%= item.account_no %></td>
+                      <!-- <td><%= i %></td> -->
+                      <td  class="row-data"><%= item.loan_no %></td>
+                      <td><%= item.income %></td>
+                      <td><%= item.month %></td>
+                      <td><%= item.status %></td>
+                      <td>
+                        <input type="button" value="Approve" onclick="approve()" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                        <input id="loan_no1" name="loan_no1" type="text" class="input" hidden>
+                        <input type="button" value="Reject" onclick="reject()" class="btn btn-danger">
+                      </td>
+                    </tr>
+                    <% i++; }) %>
+                </table>
+                <% } %>
+              </section>
+            </div>
+          </div>
+          <!-- page end-->
+        </section>
+    </section>
+    
+    <!-- Approve Modal Part -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Approve Moratorium</h4>
+          </div>
+    
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div style="overflow: auto; text-align: center; display: block;">
+              <form id='myform' action='/approve' method='POST' enctype="application/x-www-form-urlencoded" >
+                <div> <label>Months </label> <input id="mobile" name="month_no" type="number" class="input" required> </div><br>
+                <input id="loan_no" name="loan_no" type="text" class="input" hidden>
+                <div> <input id='approve' class='btn btn-success' type='submit' style="display: block; margin: 0 auto;" value="Approve"></div>
+              </form>        
+            </div>
+          </div>
+    
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+    <!--main content end-->
+
+  </section>
+  <!-- container section end -->
+  
+  <!-- Include script_links Section which consits all the links of js and js scripts -->
+  <%- include('script_links.ejs') %>
+
+</body>
+</html>

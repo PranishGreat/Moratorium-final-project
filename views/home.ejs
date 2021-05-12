@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <%- include('head_section.ejs') %>
+
+<body>
+  
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo mr-auto">
+        <a href="/index" class="logo mr-auto"><img src="assets/img/bank.png" alt="" class="img-fluid"></a>
+        <a href="/index">Moratorium Bank</a>
+      </h1>
+      
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="/home">Home</a></li>
+          <li><a href="/login">Profile</a></li>
+          <li><a href="#calculator">Calculator</a></li>
+          <li><a href="#news">News Feed</a></li> 
+          <li><a href="#about">About Us</a></li>    
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+      <a href="/logout" class="get-started-btn scrollto">Log Out<img src="assets/img/log-out.png" alt="" class="img-fluid"></a>
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+          <h1>Moratorium Chatbot</h1>
+          <h2>Chat & Apply for Moratorium Easily</h2>
+          <div class="d-lg-flex">
+            
+            <a href="https://www.youtube.com/watch?v=hhX6Ou0hlg0" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> Watch Video <i class="icofont-play-alt-2"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+          <img src="assets/img/emi_moratorium.png" class="img-fluid animated" alt="" style="height: 350px; width: 400px;">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+    
+    <!-- Start Calculator Section -->
+    <%- include('calculator_section.ejs') %>
+    <!-- End Calculator Section -->
+
+    <!-- News Notification Section -->
+    <%- include('news_section.ejs')%>
+    ><!-- End News Notification Section -->
+
+
+    <!-- ======= About Us Section ======= -->
+    <%- include('about_section.ejs') %>
+    <!-- End About Us Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <%- include('contact_section.ejs') %>
+    <!-- End Contact Section -->
+
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <%- include('footer_section.ejs') %>
+  <!-- End Footer -->
+
+  <%- include('links_scripts.ejs') %>
+</body>
+
+</html>

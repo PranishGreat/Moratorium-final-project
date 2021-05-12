@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('head_section.ejs') %>
+<body>
+
+
+  <!-- ======= Header ======= -->
+  <%- include('header_section.ejs') %>
+  <!-- =======End Header ======= -->
+
+  <!-- ======= Hero Section ======= -->
+  <%- include('hero_section.ejs') %>
+  <!-- ======= End Hero Section ======= -->
+  
+  <!--- Scripts-->
+  <%- include('links_scripts.ejs')%>
+  <!--- End Scripts-->
+     <!-- ======= Checking some States ======= -->
+    
+        <!-- ======= check Login state ======= -->
+        <% if (state) { %>
+          <script>errorAlert('Login Failed !')</script>
+          <% } %>
+
+        <!-- ======= check Register state ======= -->
+        <% if (regstate) { %>
+          <script>successAlert('Welcome ',' Register Success !')</script>
+          <% } %>
+        
+          <!-- ======= check Register Fail state ======= -->
+        <% if (regfail) { %>
+          <script>errorAlert('Register Failed!')</script>
+          <% } %>
+
+        <!-- ======= check Logout state ======= -->
+        <% if (logout) { %>
+          <script>successAlert('','Logout Success !')</script>
+          <% } %>
+    
+    <!-- ======= End Checking  ======= -->      
+  <main id="main">  
+
+    <!-- Start Calculator Section -->
+    <%- include('calculator_section.ejs') %>
+    <!-- End Calculator Section -->
+
+    <!-- News Notification Section -->
+    <%- include('news_section.ejs')%>
+    <!-- End News Notification Section -->
+    
+    <!-- About us Section -->
+    <%- include('about_section.ejs')%>
+    <!-- End About us Section -->
+   
+    <!-- ======= Contact Section ======= -->
+    <%- include('contact_section.ejs')%>
+    <!-- End Contact Section -->
+
+  </main><!-- End #main -->
+  
+    <!-- Login Section -->
+    <%- include('login_section.ejs')%>
+    <!-- End Login Section -->
+    
+  <!-- Chatbot Section -->
+  <%- include('chatbot_section.ejs')%>
+    <!-- End Chatbot Section -->
+
+  <!-- ======= Footer ======= -->
+  <%- include('footer_section.ejs')%>
+  <!-- End Footer -->
+
+</body>
+
+</html>

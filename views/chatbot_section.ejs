@@ -1,0 +1,81 @@
+<div class="middle" onclick="openChat()">
+  <div class="popup bubble bubble-bottom-left middle" id="popup">
+  <p>Chat Here...</p>
+</div>
+  <a class="botbtn" href="#">
+    <i class="fa fa-comment"></i>
+  </a>
+</div>
+<div class="chat_window" id="openChat">
+  <div class="top_menu">
+    <div class="buttons" onclick="closeChat()">
+      <!--<div class="button close"></div>-->
+      <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="title">Virtual Assistant</div>
+  </div>
+  <!-- <ul class="messages"></ul> -->
+
+  <ul class="messages" id="msgul">
+    <li class="message left appeared">
+     <div class="avatar"><img class="imgs" src="img/bot.jpg" /></div>
+      <div class="text_wrapper">
+        <div class="text">hey!<br>How can I help you?</div>
+      </div>
+    </li>
+    <li class="message left appeared">
+      <div class="singleCard">
+        <div class="suggestions">
+          <div class="menu">
+            <div class="menuChips" data-payload="/menu">Title</div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="message left appeared">
+      <div class="singleCard">
+      <img class="imgcard" src="img/baam.webp">
+        </div><div class="clearfix">
+    </li>
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="bottom_wrapper clearfix">
+    <div class="message_input_wrapper">
+      <input
+        id="userMessage"
+        class="message_input"
+        placeholder="Type your message here..."
+      />
+    </div>
+    <div
+      class="send_message"
+      onclick="setUserResponce(document.getElementById('userMessage').value);"
+    >
+      <div class="icon"></div>
+      <div class="text">Send</div>
+    </div>
+  </div>
+</div>
+<div class="message_template">
+  <li class="message">
+    <div class="avatar"></div>
+    <div class="text_wrapper">
+      <div class="text"></div>
+    </div>
+  </li>
+</div>

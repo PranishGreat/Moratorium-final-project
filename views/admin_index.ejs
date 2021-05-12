@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <!-- Include Head Section which consits all the links of css -->
+  <%- include('admin_head_section.ejs') %>
+
+<body>
+  <!-- container section start -->
+  <section id="container" class="">
+
+    <!-- start header -->
+    <%- include('admin_header_section.ejs') %>
+    <!--header end-->
+
+    <!--sidebar start-->
+    <%- include('sidebar_section.ejs') %>
+    <!--sidebar end-->
+
+    <!--main content start-->
+    <%- include('dashboard_section.ejs') %>
+    <!--main content end-->
+  
+  </section>
+  <!-- container section end -->
+
+  <!-- Include script_links Section which consits all the links of js and js scripts -->
+  <%- include('script_links.ejs') %>
+
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+<!-- Sign Up form -->
+<div class="sign-up-form">
+    <form action='/register' method='POST' enctype="application/x-www-form-urlencoded">
+    <div class="group"> <label for="user" class="label">Username</label> <input id="username" name='username' type="text" class="input" placeholder="e.g. John12" required> </div>
+    <div class="group"> <label for="pass" class="label">Password</label> <input id="password" name="password" type="password" class="input" data-type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="e.g. Example@123" required> </div>
+    <div class="group"> <label for="pass" class="label">Confirm Password</label> <input id="password1" name="password1" type="password" class="input" data-type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Confirm Password" required> </div>
+    <div class="group"> <label for="pass" class="label">Email Address</label> <input id="email1" name="email1" type="email" class="input" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="e.g. abc@gmail.com" required> </div>
+    <div class="group"> <button class='button' type='submit'>Sign Up</button></div>
+    <div class="hr"></div>
+    </form>
+    
+</div>

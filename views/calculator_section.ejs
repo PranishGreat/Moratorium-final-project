@@ -1,0 +1,63 @@
+<section id="calculator" class="calculator">
+    <div class="container" data-aos="fade-up">
+      <div class="section-title">
+        <h2>Loan Calculator</h2>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 d-flex align-items-stretch">
+            <form id="loan-form" class="cal-form">
+              <u><h4 style="text-align: center;">Calculate</h4></u><br>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><strong>Principal Amount<b> (₹)</b></strong></span>
+                  <input type="number" class="form-control" id="amount" placeholder="Loan Amount" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><strong>Interest <b> (%)</b></strong></span>
+                  <input type="number" step="0.01" class="form-control" id="interest" placeholder="Interest" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                <span class="input-group-addon"><strong>Months</strong></span>
+                <input type="number" class="form-control" id="years" placeholder="Months" required>
+                </div>
+              </div>
+              <div class="form-group" style='display: flex;justify-content: center;align-items: center;'>
+                <input type="submit" value="Calculate" class="btn btn-success btn">&nbsp;
+                <input type="reset" value="Reset" class="btn btn-danger btn" >
+              </div>  
+            </form>
+        </div>
+        
+        <div class="col-lg-6 mt-5 mt-lg-0 d-flex align-items-stretch">
+            <div id="results" class="cal-form">
+              <u><h4 style="text-align: center;">Results</h4></u><br>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><strong>Monthly Payment</strong></span>
+                  <input type="number" class="form-control" id="monthly-payment" disabled>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><strong>Total Payment</strong></span>
+                  <input type="number" class="form-control" id="total-payment" disabled>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><strong>Total Interest</strong></span>
+                  <input type="number" class="form-control" id="total-interest" disabled>
+                </div>
+              </div>
+             
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>

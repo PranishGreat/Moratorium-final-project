@@ -1,0 +1,12 @@
+<!-- Login form -->
+
+<div class="login">
+    <form action='/auth' method='POST' enctype="application/x-www-form-urlencoded" >
+    <div class="group"> <label for="user" class="label">Email</label> <input id="user" name='login_email' type="email" class="input" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  placeholder="e.g. abc@gmail.com"> </div>
+    <div class="group"> <label for="pass" class="label">Password</label> <input id="pass" name='login_pass' type="password" class="input" data-type="password" placeholder="Password Please !"> </div>
+    <div class="group"> <input id="check" type="checkbox" class="check" checked> <label for="check"><span class="icon"></span> Keep me Signed in</label> </div>
+    <!-- <div class="group"> <input type="submit" class="button" value="Sign In"> </div> -->
+    <div class="group"> <button class="button" style="text-align: center;" > Log in </button></div>
+    <div class="hr"></div>
+  </form>
+</div>
