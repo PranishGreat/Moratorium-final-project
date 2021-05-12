@@ -123,7 +123,7 @@ app.get('/login',(req,res)=>{
   registerFail=false;
   logout=false;
   var details=[];
-
+  
 
 db.collection("moratorium").find({email:sess.email}).toArray(function(err, result1) {
   if (err) throw err;
@@ -133,15 +133,22 @@ db.collection("moratorium").find({email:sess.email}).toArray(function(err, resul
    db.collection("user").find({email:sess.email}).sort(mysort).toArray(function(err, result) {
     if (err) throw err;
     console.log(loginState)
-    result5=[{
-      username: result[0]['username'],
-      name: result[0]['name'],
-      address: result[0]['address'],
-      mobile: aes256.decrypt(key,result[0]['mobile']),
-      aadhar: aes256.decrypt(key,result[0]['aadhar']),
-      bank_name: aes256.decrypt(key,result[0]['bank_name']),
-      moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc'])    
-    }]
+if(result[0]['status']===false)
+      {
+        result5=result
+      }
+      else
+      {
+        result5=[{
+          username: result[0]['username'],
+          name: result[0]['name'],
+          address: result[0]['address'],
+          mobile: aes256.decrypt(key,result[0]['mobile']),
+          aadhar: aes256.decrypt(key,result[0]['aadhar']),
+          bank_name: aes256.decrypt(key,result[0]['bank_name']),
+          moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc'])
+        }]
+      }
     res.render('login', {result:result5,status:result[0]['status'],state:loginState,regstate:registerState,regfail:registerFail,logout:logout,details:details});
 
 })
