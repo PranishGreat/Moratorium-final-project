@@ -452,3 +452,5 @@ info: Logout!! {"timestamp":"2021-05-10 15:44:25"}
 warn: Session Terminated!!! {"timestamp":"2021-05-10 15:44:25"}
 info: Session Created for User:-  payal@gmail.com {"timestamp":"2021-05-10 15:44:38"}
 info: Session Created for User:-  payal@gmail.com {"timestamp":"2021-05-10 15:46:09"}
+info: Server connected to 8040 {"timestamp":"2021-05-12 17:23:20"}
+info: Connection Successful! {"timestamp":"2021-05-12 17:23:23"}
