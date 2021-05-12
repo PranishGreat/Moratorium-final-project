@@ -171,16 +171,22 @@ app.get('/loginsuccess',(req,res)=>{
       if (err) throw err;
       console.log(loginState)
      
-      result5=[{
-        username: result[0]['username'],
-        name: result[0]['name'],
-        address: result[0]['address'],
-        mobile: aes256.decrypt(key,result[0]['mobile']),
-        aadhar: aes256.decrypt(key,result[0]['aadhar']),
-        bank_name: aes256.decrypt(key,result[0]['bank_name']),
-        moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc'])    
-      }]
-     
+     if(result[0]['status']===false)
+      {
+        result5=result
+      }
+      else
+      {
+        result5=[{
+          username: result[0]['username'],
+          name: result[0]['name'],
+          address: result[0]['address'],
+          mobile: aes256.decrypt(key,result[0]['mobile']),
+          aadhar: aes256.decrypt(key,result[0]['aadhar']),
+          bank_name: aes256.decrypt(key,result[0]['bank_name']),
+          moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc'])
+        }]
+      }
       res.render('login', {result:result5,status:result[0]['status'],state:loginState,details:details});
     });
   })
