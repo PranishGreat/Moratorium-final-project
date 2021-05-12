@@ -33,7 +33,7 @@ app.set("views", "./views");
 app.set("view engine", "ejs");
 
 // PORT 
-const port=8040;
+const port=process.env.PORT || 8040;
 
 app.listen(port, ()=>logger.log('info',`Server connected to ${port}`));
 
