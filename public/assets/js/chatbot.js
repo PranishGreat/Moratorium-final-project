@@ -84,7 +84,7 @@ function setBotResponceImg(val) {
 
 async function callToApi(text) {
   data = {
-    sender:"new_user",
+    sender:""+date,
     message: text,
   };
   url = "https://eritodypimrnlu.herokuapp.com/webhooks/rest/webhook";
