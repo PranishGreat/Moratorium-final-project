@@ -1,5 +1,5 @@
 console.log("chat2.js");
-
+var date=new Date.now();
 function extra() {
   var u = document.getElementById("messages");
   var listNode = document.createElement("li");
@@ -84,7 +84,7 @@ function setBotResponceImg(val) {
 
 async function callToApi(text) {
   data = {
-    sender: new Date.now(),
+    sender:"new_user",
     message: text,
   };
   url = "https://eritodypimrnlu.herokuapp.com/webhooks/rest/webhook";
