@@ -288,7 +288,7 @@ app.get("/registerfail",(req,res)=>{
 app.post('/auth', urlencodedParser, function (req, res) {
   var email = req.body.login_email; 
   var pass = req.body.login_pass; 
-  //aes256.decrypt(key, encrypted);
+  
   db.collection('user').findOne({  email: email}, function(err, doc){
     if(err) throw err;
     if(doc) {
@@ -595,32 +595,66 @@ app.post('/admin_auth', urlencodedParser, function (req, res) {
 //Andriod API's
 
 // login Route
-app.post('/api_auth',urlencodedParser,function (req, res) {
-  var email = req.body.email; 
+app.post("/api_auth", urlencodedParser, function (req, res) {
+  var email = req.body.email;
   var pass = req.body.password;
+
+  // var pass = aes256.encrypt(key, reqpass);
+  // var pass_dec = aes256.decrypt(key, pass);
+  // console.log("STR Here Encrypted \t" + pass + "\n");
+  // console.log("STR Here Decrypted \t" + pass_dec + "\n");
   //Getting particular moratorium details of user
-  db.collection("moratorium").find({email:email}).toArray(function(err, result1) {
-    if (err) throw err;
-    details=result1
-  })
-  //Getting details of user
-  db.collection("user").find({email:email}).toArray(function(err, result) {
-    if (err) throw err;
-    userdata=result
-  })  
+  db.collection("moratorium")
+    .find({ email: email })
+    .toArray(function (err, result1) {
+      if (err) throw err;
+      details = result1;
+    });
+  // Getting details of user
+  db.collection("user")
+    .find({ email: email })
+    .toArray(function (err, result) {
+      if (err) throw err;
+      // userdata = result;
+      // console.log(aes256.decrypt(key, result[0]["aadhar"]));
+      userdata = [
+        {
+          _id: result[0]["_id"],
+          username: result[0]["username"],
+          email: result[0]["email"],
+          password: aes256.decrypt(key, result[0]["password"]),
+          status: result[0]["status"],
+          aadhar: aes256.decrypt(key, result[0]["aadhar"]),
+          address: result[0]["address"],
+          bank_name: aes256.decrypt(key, result[0]["bank_name"]),
+          dob: result[0]["dob"],
+          mobile: aes256.decrypt(key, result[0]["mobile"]),
+          moratorium_acc: aes256.decrypt(key, result[0]["moratorium_acc"]),
+          name: result[0]["name"],
+        },
+      ];
+    });
+
   //Checking Credentials for User Login
-  db.collection('user').findOne({email: email, password: pass }, function(err, doc){
-    if(err) throw err;
-    if(doc) {
-
-      res.send({login_status:"Success",userdata:userdata,details:details})
+  db.collection("user").findOne({ email: email }, function (err, doc) {
+    if (err) throw err;
+    if (doc) {
+      console.log("dec\t" + aes256.decrypt(key, doc.password));
+      if (aes256.decrypt(key, doc.password) === pass) {
+        res.send({
+          login_status: "Success",
+          userdata: userdata,
+          details: details,
+        });
+      } else {
+        res.send({ login_status: "Fail" });
+      }
     } else {
-
-        console.log(email,pass)
-        res.send({login_status:"Fail"})
+      console.log(email, pass);
+      res.send({ login_status: "Fail" });
     }
+  });
 });
-})
 
 app.post('/api_reg', urlencodedParser, function (req, res) {
   var username = req.body.username; 
