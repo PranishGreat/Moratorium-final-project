@@ -47,20 +47,30 @@
                 <% if(details!=null) { %>
                 <table class="table table-striped table-advance table-hover">
                     <tr>
-                      <th><i class="icon_profile"></i> Account No </th>
-                      <th><i class="icon_calendar"></i> Loan No</th>
-                      <th><i class="icon_mail_alt"></i> Income</th>
-                      <th><i class="icon_mail_alt"></i> Month</th>
-                      <th><i class="icon_pin_alt"></i> Status</th>
-                      <th><i class="icon_cogs"></i> Action</th>
+                      <th>Account No </th>
+                      <th>Loan No</th>
+                      <th>Income Source</th>
+                      <th>Income</th>
+                      <th>Month</th>
+                      <th>Reason</th>
+                      <th>Covid Effect</th>
+                      <th>Rent</th>
+                      <th>Area/Zone</th>
+                      <th>Status</th>
+                      <th>Action</th>
                     </tr>
                     <% var i=1; details.forEach(function(item){ %>
                     <tr id=<%= i %>>
                       <td><%= item.account_no %></td>
                       <!-- <td><%= i %></td> -->
                       <td  class="row-data"><%= item.loan_no %></td>
+                      <td><%= item.income_source%></td>
                       <td><%= item.income %></td>
                       <td><%= item.month %></td>
+                      <td><%= item.reason%></td>
+                      <td><%= item.covid_effect%></td>
+                      <td><%= item.rent_pay%></td>
+                      <td><%= item.area_zone%></td>
                       <td><%= item.status %></td>
                       <td>
                         <input type="button" value="Approve" onclick="approve()" class="btn btn-success" data-toggle="modal" data-target="#myModal">
