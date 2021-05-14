@@ -27,9 +27,30 @@
 
     </div>
   </header><!-- End Header -->
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    // <!-- ======= Sweet alert for success ======= -->
+    successAlert = function(s1,success) {
+      swal(s1,success, "success");
+    }
+  
+    // <!-- ======= Sweet alert for Failure ======= -->
+    errorAlert = function(err) {
+      swal('Opps!',err,"error");
+    }
+    </script>
   <% if (state) { %>
-    <script>successAlert('Welcome ',' Login Successful !')</script>
+    <script>successAlert('Welcome ',' Login Success !')</script>
     <% } %>
+  
+  <% if (updateState) { %>
+    <script>errorAlert('Aadhar Incorrect, Update Failed !')</script>
+      <% } %>
+  
+  <% if (updateState1) { %>
+    <script>successAlert('Good Job! ',' Updated Successfully !')</script>
+        <% } %>
+
   <!-- ======= Hero Section ======= -->
  <section id="hero1" class="d-flex align-items-center">
 
