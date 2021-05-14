@@ -669,7 +669,7 @@ app.post('/approve', urlencodedParser, function (req, res) {
       from: 'moratoriumbank@gmail.com',
       to: email,
       subject: 'Moratorium Request Approved',
-      text: 'Hi, '+email+'/n/n Your Moratorium Request for Loan No: '+loan_no+' is Approved for '+month_no+' months.'
+      text: 'Hi, '+email+' Your Moratorium Request for Loan No: '+loan_no+' is Approved for '+month_no+' months.'
     };
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
@@ -709,7 +709,7 @@ app.post('/reject', urlencodedParser, function (req, res) {
       from: 'moratoriumbank@gmail.com',
       to: email,
       subject: 'Moratorium Request Rejected',
-     text: 'Hi, '+email+'/n/n Sorry, Your Moratorium Request for Loan No: '+loan_no+' is Rejected.'
+     text: 'Hi, '+email+' Sorry, Your Moratorium Request for Loan No: '+loan_no+' is Rejected.'
     };
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
