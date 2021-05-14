@@ -10,6 +10,7 @@ const logger=require('./logger');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const { createLogger } = require("winston");
+const nodemailer = require('nodemailer');
 
 //Links
 const url = 'https://www.business-standard.com/topic/banking-sector'
@@ -76,6 +77,7 @@ var loginState=false;
 var registerState=false;
 var registerFail=false;
 var logout=false;
+var updateState=false;
 var key = 'my passphrase';
 // ROUTES
 
@@ -149,7 +151,8 @@ if(result[0]['status']===false)
           moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc'])
         }]
       }
-    res.render('login', {result:result5,status:result[0]['status'],state:loginState,regstate:registerState,regfail:registerFail,logout:logout,details:details});
+    res.render('login', {result:result5,status:result[0]['status'],state:loginState,details:details,updateState:false,updateState1:false});
+
 
 })
 })
@@ -194,7 +197,7 @@ app.get('/loginsuccess',(req,res)=>{
           moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc'])
         }]
       }
-      res.render('login', {result:result5,status:result[0]['status'],state:loginState,details:details});
+     res.render('login', {result:result5,status:result[0]['status'],state:loginState,details:details,updateState:false,updateState1:false});
     });
   })
 
@@ -356,15 +359,109 @@ app.post('/update', urlencodedParser, function (req, res) {
   var myquery = { email: sess.email };
   var newvalues = { $set: {"name":name,"mobile":mobile,"dob":dob,"aadhar":aadhar,"address":address,"moratorium_acc":acc,"bank_name":bank,"status":true } };
 
-  db.collection("user").updateOne(myquery, newvalues, function(err,r) {
+   db.collection('aadhar').findOne({  aadhar: aes256.decrypt(key,aadhar)}, function(err, doc){
     if (err) throw err;
+    if(doc)
+    {
+      db.collection("user").updateOne(myquery, newvalues, function(err,r) {
+        if (err) throw err;
+      
+        logger.log('info',"Information Updated!!");
+        
+      });
+      res.redirect('/updatesuccess');
+    }
+    else
+    {
+      res.redirect('/updatefail');
+    }
+  });
+});
+app.get('/updatesuccess',(req,res)=>{
+  sess = req.session;
+    if(sess.email) {
+        logger.log('info',"Session Created for User:-  "+sess.email) 
+    }
+    else {
+        logger.log('error','User Not Found');   
+        logger.log('error','Please, Login first'); 
+        res.redirect('/index');
+    }
+    var details=[];
   
-    logger.log('info',"Information Updated!!");
-    
-  });
-  res.redirect('/login');  
-  });
+    db.collection("moratorium").find({email:sess.email}).toArray(function(err, result1) {
+      if (err) throw err;
+      details=result1
+    })
 
+  var mysort = { time: -1 };
+  loginState=true;
+  updateState=true;
+   db.collection("user").find({email:sess.email}).sort(mysort).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(loginState)
+    if(result[0]['status']===false)
+    {
+      result5=result
+    }
+    else
+    {
+      result5=[{
+        username: result[0]['username'],
+        name: result[0]['name'],
+        address: result[0]['address'],
+        mobile: aes256.decrypt(key,result[0]['mobile']),
+        aadhar: aes256.decrypt(key,result[0]['aadhar']),
+        bank_name: aes256.decrypt(key,result[0]['bank_name']),
+        moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc'])    
+      }]
+    }
+    res.render('login', {result:result5,status:result[0]['status'],state:loginState,details:details,updateState:updateState,updateState1:true});
+  });
+})
+
+app.get('/updatefail',(req,res)=>{
+  sess = req.session;
+    if(sess.email) {
+        logger.log('info',"Session Created for User:-  "+sess.email) 
+    }
+    else {
+        logger.log('error','User Not Found');   
+        logger.log('error','Please, Login first'); 
+        res.redirect('/index');
+    }
+    var details=[];
+  
+    db.collection("moratorium").find({email:sess.email}).toArray(function(err, result1) {
+      if (err) throw err;
+      details=result1
+    })
+
+  var mysort = { time: -1 };
+  loginState=true;
+  updateState=true;
+   db.collection("user").find({email:sess.email}).sort(mysort).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(loginState)
+    if(result[0]['status']===false)
+    {
+      result5=result
+    }
+    else
+    {
+      result5=[{
+        username: result[0]['username'],
+        name: result[0]['name'],
+        address: result[0]['address'],
+        mobile: aes256.decrypt(key,result[0]['mobile']),
+        aadhar: aes256.decrypt(key,result[0]['aadhar']),
+        bank_name: aes256.decrypt(key,result[0]['bank_name']),
+        moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc'])    
+      }]
+    }
+    res.render('login', {result:result5,status:result[0]['status'],state:loginState,details:details,updateState:updateState,updateState1:false});
+  });
+})
   // contact route
   app.post('/contact', urlencodedParser, function (req, res) {
     var contact_name = req.body.contact_name; 
@@ -557,6 +654,33 @@ app.post('/approve', urlencodedParser, function (req, res) {
       if (err) throw err;
       console.log("1 document updated");
   });
+  db.collection('moratorium').findOne({  loan_no: loan_no}, function(err, doc){
+    if(err) throw err;
+    if(doc) {
+    var email=doc.email;
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'moratoriumbank@gmail.com',
+        pass: 'moratorium@13'
+      }
+    });
+    var mailOptions = {
+      from: 'moratoriumbank@gmail.com',
+      to: email,
+      subject: 'Moratorium Request Approved',
+      text: 'Hi, '+email+' Your Moratorium Request for Loan No: '+loan_no+' is Approved for '+month_no+' months.'
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+    //console.log(email);
+    }
+    });
   res.redirect('/approved');  
 });
 
@@ -570,6 +694,33 @@ app.post('/reject', urlencodedParser, function (req, res) {
       if (err) throw err;
       console.log("1 document updated");
   });
+   db.collection('moratorium').findOne({  loan_no: loan_no}, function(err, doc){
+    if(err) throw err;
+    if(doc) {
+    var email=doc.email;
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'moratoriumbank@gmail.com',
+        pass: 'moratorium@13'
+      }
+    });
+    var mailOptions = {
+      from: 'moratoriumbank@gmail.com',
+      to: email,
+      subject: 'Moratorium Request Rejected',
+      text: 'Hi, '+email+' Sorry, Your Moratorium Request for Loan No: '+loan_no+' is Rejected.'
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+    //console.log(email);
+    }
+    });
   res.redirect('/rejected');  
 });
 
