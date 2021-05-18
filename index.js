@@ -642,8 +642,9 @@ app.get('/pending', (req, res) =>{
   db.collection('moratorium').find({status:"Pending"}).toArray(function(err, doc){
       if (err) {
           console.log(err);
-      } else {
-        details=[{
+      }     
+     if(doc) {
+          details=[{
             account_no: aes256.decrypt(key,doc[0]['account_no']),
             loan_no: aes256.decrypt(key,doc[0]['loan_no']),
             income_source: doc[0]['income_source'],
@@ -655,7 +656,7 @@ app.get('/pending', (req, res) =>{
             area_zone: doc[0]['area_zone'],
             status: doc[0]['status']
           }]
-          res.render('pending_table', { details: details,status:"Pending"})
+          res.render('approved_table', { details: details,status:"Approved"})
       }
   });
 });
@@ -664,9 +665,9 @@ app.get('/pending', (req, res) =>{
 app.get('/approved', (req, res) =>{
   db.collection('moratorium').find({status:"Approved"}).toArray(function(err, doc){
       if (err) {
-          console.log(err);
-          
-      } else {
+          console.log(err);  
+      } 
+      if(doc) {
           details=[{
             account_no: aes256.decrypt(key,doc[0]['account_no']),
             loan_no: aes256.decrypt(key,doc[0]['loan_no']),
@@ -690,8 +691,9 @@ app.get('/rejected', (req, res) =>{
   db.collection('moratorium').find({status:"Rejected"}).toArray(function(err, doc){
       if (err) {
           console.log(err);
-      } else {
-        details=[{
+      } 
+      if(doc) {
+          details=[{
             account_no: aes256.decrypt(key,doc[0]['account_no']),
             loan_no: aes256.decrypt(key,doc[0]['loan_no']),
             income_source: doc[0]['income_source'],
@@ -703,7 +705,7 @@ app.get('/rejected', (req, res) =>{
             area_zone: doc[0]['area_zone'],
             status: doc[0]['status']
           }]
-          res.render('rejected_table', { details: details,status:"Rejected"})
+          res.render('approved_table', { details: details,status:"Approved"})
       }
   });
 });
