@@ -129,7 +129,14 @@ app.get('/login',(req,res)=>{
 
 db.collection("moratorium").find({email:sess.email}).toArray(function(err, result1) {
   if (err) throw err;
-  details=result1
+  details=[{
+    account_no: aes256.decrypt(key,result1[0]['account_no']),
+    loan_no: aes256.decrypt(key,result1[0]['loan_no']),
+    loan_name: result1[0]['loan_name'],
+    income: result1[0]['income'],
+    month: result1[0]['month'],
+    status: result1[0]['status'] 
+  }]
 })
 
    db.collection("user").find({email:sess.email}).sort(mysort).toArray(function(err, result) {
@@ -172,7 +179,14 @@ app.get('/loginsuccess',(req,res)=>{
     
       db.collection("moratorium").find({email:sess.email}).toArray(function(err, result1) {
         if (err) throw err;
-        details=result1
+            details=[{
+              account_no: aes256.decrypt(key,result1[0]['account_no']),
+              loan_no: aes256.decrypt(key,result1[0]['loan_no']),
+              loan_name: result1[0]['loan_name'],
+              income: result1[0]['income'],
+              month: result1[0]['month'],
+              status: result1[0]['status'] 
+        }]
       })
 
     var mysort = { time: -1 };
@@ -391,7 +405,14 @@ app.get('/updatesuccess',(req,res)=>{
   
     db.collection("moratorium").find({email:sess.email}).toArray(function(err, result1) {
       if (err) throw err;
-      details=result1
+      details=[{
+    account_no: aes256.decrypt(key,result1[0]['account_no']),
+    loan_no: aes256.decrypt(key,result1[0]['loan_no']),
+    loan_name: result1[0]['loan_name'],
+    income: result1[0]['income'],
+    month: result1[0]['month'],
+    status: result1[0]['status'] 
+  }]
     })
 
   var mysort = { time: -1 };
@@ -434,7 +455,14 @@ app.get('/updatefail',(req,res)=>{
   
     db.collection("moratorium").find({email:sess.email}).toArray(function(err, result1) {
       if (err) throw err;
-      details=result1
+      details=[{
+    account_no: aes256.decrypt(key,result1[0]['account_no']),
+    loan_no: aes256.decrypt(key,result1[0]['loan_no']),
+    loan_name: result1[0]['loan_name'],
+    income: result1[0]['income'],
+    month: result1[0]['month'],
+    status: result1[0]['status'] 
+  }]
     })
 
   var mysort = { time: -1 };
