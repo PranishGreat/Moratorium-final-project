@@ -753,15 +753,15 @@ app.post('/approve', urlencodedParser, function (req, res) {
   var loan_no = req.body.loan_no;
   console.log(month_no);
   console.log(req.body.loan_no); 
-  var myquery = { loan_no: aes256.decrypt(key,loan_no) };
+  var myquery = { loan_no: loan_no };
   var newvalues = { $set: {month: month_no, status: "Approved" } };
   db.collection("moratorium").updateOne(myquery, newvalues, function(err, res) {
       if (err) throw err;
       console.log("1 document updated");
   });
-  db.collection('moratorium').findOne({  loan_no: aes256.decrypt(key,loan_no) }, function(err, doc){
+  db.collection('moratorium').findOne({}, function(err, doc){
     if(err) throw err;
-    if(doc) {
+    if(aes256.decrypt(key,doc.loan_no)=== loan_no) {
     var email=doc.email;
     var transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -774,7 +774,7 @@ app.post('/approve', urlencodedParser, function (req, res) {
       from: 'moratoriumbank@gmail.com',
       to: email,
       subject: 'Moratorium Request Approved',
-      text: 'Hi, '+email+' Your Moratorium Request for Loan No: '+aes256.decrypt(key,loan_no)+' is Approved for '+month_no+' months.'
+      text: 'Hi, '+email+' Your Moratorium Request for Loan No: '+loan_no+' is Approved for '+month_no+' months.'
     };
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
@@ -793,15 +793,15 @@ app.post('/approve', urlencodedParser, function (req, res) {
 app.post('/reject', urlencodedParser, function (req, res) {
   var loan_no = req.body.loan_no;
   console.log(req.body.loan_no); //prints john
-  var myquery = { loan_no: aes256.decrypt(key,loan_no) };
+  var myquery = { loan_no: loan_no };
   var newvalues = { $set: {status: "Rejected" } };
   db.collection("moratorium").updateOne(myquery, newvalues, function(err, res) {
       if (err) throw err;
       console.log("1 document updated");
   });
-   db.collection('moratorium').findOne({  loan_no: aes256.decrypt(key,loan_no)}, function(err, doc){
+   db.collection('moratorium').findOne({}, function(err, doc){
     if(err) throw err;
-    if(doc) {
+    if(aes256.decrypt(key,doc.loan_no)=== loan_no) {
     var email=doc.email;
     var transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -814,7 +814,7 @@ app.post('/reject', urlencodedParser, function (req, res) {
       from: 'moratoriumbank@gmail.com',
       to: email,
       subject: 'Moratorium Request Rejected',
-     text: 'Hi, '+email+' Sorry, Your Moratorium Request for Loan No: '+aes256.decrypt(key,loan_no)+' is Rejected.'
+     text: 'Hi, '+email+' Sorry, Your Moratorium Request for Loan No: '+loan_no+' is Rejected.'
     };
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
