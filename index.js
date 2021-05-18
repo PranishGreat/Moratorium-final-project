@@ -659,37 +659,28 @@ app.get('/admin_contact', (req, res) =>{
 
 //Pending Records Table
 app.get('/pending', (req, res) =>{
+  var details=[];
   db.collection('moratorium').find({status:"Pending"}).toArray(function(err, doc){
       if (err) {
           console.log(err);
-      }     
-     if(doc) {
-          details=[{
-            account_no: aes256.decrypt(key,doc[0]['account_no']),
-            loan_no: aes256.decrypt(key,doc[0]['loan_no']),
-            income_source: doc[0]['income_source'],
-            income: doc[0]['income'],
-            month: doc[0]['month'],
-            reason: doc[0]['reason'],
-            covid_effect: doc[0]['covid_effect'],
-            rent_pay: doc[0]['rent_pay'],
-            area_zone: doc[0]['area_zone'],
-            status: doc[0]['status']
+      } else{
+          var detail=[];
+        for(var i=0;i<doc.length;i++)
+        {
+          detail=[{
+            account_no: aes256.decrypt(key,doc[i]['account_no']),
+            loan_no: aes256.decrypt(key,doc[i]['loan_no']),
+            income_source: doc[i]['income_source'],
+            income: doc[i]['income'],
+            month: doc[i]['month'],
+            reason: doc[i]['reason'],
+            covid_effect: doc[i]['covid_effect'],
+            rent_pay: doc[i]['rent_pay'],
+            area_zone: doc[i]['area_zone'],
+            status: doc[i]['status']
           }]
-          res.render('pending_table', { details: details,status:"Pending"})
-      }else{
-         details=[{
-            account_no:doc[0]['account_no'],
-            loan_no:doc[0]['loan_no'],
-            income_source: doc[0]['income_source'],
-            income: doc[0]['income'],
-            month: doc[0]['month'],
-            reason: doc[0]['reason'],
-            covid_effect: doc[0]['covid_effect'],
-            rent_pay: doc[0]['rent_pay'],
-            area_zone: doc[0]['area_zone'],
-            status: doc[0]['status']
-          }]
+          details=details.concat(detail);
+        }
           res.render('pending_table', { details: details,status:"Pending"})
       
       }
@@ -698,37 +689,28 @@ app.get('/pending', (req, res) =>{
 
 //Approved Records Table
 app.get('/approved', (req, res) =>{
+  var details=[];
   db.collection('moratorium').find({status:"Approved"}).toArray(function(err, doc){
       if (err) {
           console.log(err);  
-      } 
-      if(doc) {
-          details=[{
-            account_no: aes256.decrypt(key,doc[0]['account_no']),
-            loan_no: aes256.decrypt(key,doc[0]['loan_no']),
-            income_source: doc[0]['income_source'],
-            income: doc[0]['income'],
-            month: doc[0]['month'],
-            reason: doc[0]['reason'],
-            covid_effect: doc[0]['covid_effect'],
-            rent_pay: doc[0]['rent_pay'],
-            area_zone: doc[0]['area_zone'],
-            status: doc[0]['status']
-          }]
-          res.render('approved_table', { details: details,status:"Approved"})
       }else{
-      details=[{
-            account_no:doc[0]['account_no'],
-            loan_no:doc[0]['loan_no'],
-            income_source: doc[0]['income_source'],
-            income: doc[0]['income'],
-            month: doc[0]['month'],
-            reason: doc[0]['reason'],
-            covid_effect: doc[0]['covid_effect'],
-            rent_pay: doc[0]['rent_pay'],
-            area_zone: doc[0]['area_zone'],
-            status: doc[0]['status']
+     var detail=[];
+        for(var i=0;i<doc.length;i++)
+        {
+          detail=[{
+            account_no: aes256.decrypt(key,doc[i]['account_no']),
+            loan_no: aes256.decrypt(key,doc[i]['loan_no']),
+            income_source: doc[i]['income_source'],
+            income: doc[i]['income'],
+            month: doc[i]['month'],
+            reason: doc[i]['reason'],
+            covid_effect: doc[i]['covid_effect'],
+            rent_pay: doc[i]['rent_pay'],
+            area_zone: doc[i]['area_zone'],
+            status: doc[i]['status']
           }]
+          details=details.concat(detail);
+        }
           res.render('approved_table', { details: details,status:"Approved"})
       }
     
@@ -737,37 +719,28 @@ app.get('/approved', (req, res) =>{
 
 //Rejected Records Table
 app.get('/rejected', (req, res) =>{
+  var details=[];
   db.collection('moratorium').find({status:"Rejected"}).toArray(function(err, doc){
       if (err) {
           console.log(err);
-      } 
-      if(doc) {
-          details=[{
-            account_no: aes256.decrypt(key,doc[0]['account_no']),
-            loan_no: aes256.decrypt(key,doc[0]['loan_no']),
-            income_source: doc[0]['income_source'],
-            income: doc[0]['income'],
-            month: doc[0]['month'],
-            reason: doc[0]['reason'],
-            covid_effect: doc[0]['covid_effect'],
-            rent_pay: doc[0]['rent_pay'],
-            area_zone: doc[0]['area_zone'],
-            status: doc[0]['status']
-          }]
-          res.render('rejected_table', { details: details,status:"Rejected"})
       }else{
-        details=[{
-            account_no: doc[0]['account_no'],
-            loan_no: doc[0]['loan_no'],
-            income_source: doc[0]['income_source'],
-            income: doc[0]['income'],
-            month: doc[0]['month'],
-            reason: doc[0]['reason'],
-            covid_effect: doc[0]['covid_effect'],
-            rent_pay: doc[0]['rent_pay'],
-            area_zone: doc[0]['area_zone'],
-            status: doc[0]['status']
+       var detail=[];
+        for(var i=0;i<doc.length;i++)
+        {
+          detail=[{
+            account_no: aes256.decrypt(key,doc[i]['account_no']),
+            loan_no: aes256.decrypt(key,doc[i]['loan_no']),
+            income_source: doc[i]['income_source'],
+            income: doc[i]['income'],
+            month: doc[i]['month'],
+            reason: doc[i]['reason'],
+            covid_effect: doc[i]['covid_effect'],
+            rent_pay: doc[i]['rent_pay'],
+            area_zone: doc[i]['area_zone'],
+            status: doc[i]['status']
           }]
+          details=details.concat(detail);
+        }
           res.render('rejected_table', { details: details,status:"Rejected"})
       
       }
