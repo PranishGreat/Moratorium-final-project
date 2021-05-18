@@ -547,22 +547,16 @@ app.get('/url',(req,res,next)=>{
     $('.listing-txt').each(function(){
       var text=$(this).find('a').text();
       var link ="https://www.business-standard.com/"+$(this).find('a').attr('href');
-
-      console.log(text,link);
-
       if (text!=undefined || link!='' || text!=''){
         var d=new Model({text:text,Link1:link});
         d.save(function(err, doc) {
           if (err) return console.error(err);
-          // console.log("Document inserted succussfully!");
-          console.log(doc)
-          
           });    
       }
-
     })
    
 }).catch(console.error);
+  res.redirect('/index');
 })
 
 app.get('/url1',(req,res,next)=>{
@@ -574,19 +568,16 @@ app.get('/url1',(req,res,next)=>{
     $('.news_heading').each(function(){
       var text=$(this).find('a').attr('title');
       var link ='https://www.moneycontrol.com/'+ $(this).find('a').attr('href');
-      // var date1 =$(this).find('.storyDate').text();
       if($(this).find('a').attr('href')!=undefined){
         var d=new Model({text:text,Link1:link});
         d.save(function(err, doc) {
           if (err) return console.error(err);
-          console.log(doc);
           });  
-      }
-        
+      }  
     })
   
 }).catch(console.error);
-
+res.redirect('/index');
 })
 
 
