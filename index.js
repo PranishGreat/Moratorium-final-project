@@ -751,18 +751,27 @@ app.get('/rejected', (req, res) =>{
 app.post('/approve', urlencodedParser, function (req, res) {
   var month_no = req.body.month_no; 
   var loan_no = req.body.loan_no;
+  var l,myquery,newvalues;
   console.log(month_no);
-  console.log(req.body.loan_no); 
-  var myquery = { loan_no: loan_no };
-  var newvalues = { $set: {month: month_no, status: "Approved" } };
-  db.collection("moratorium").updateOne(myquery, newvalues, function(err, res) {
-      if (err) throw err;
-      console.log("1 document updated");
-  });
-  db.collection('moratorium').findOne({}, function(err, doc){
-    if(err) throw err;
-    if(aes256.decrypt(key,doc.loan_no)=== loan_no) {
-    var email=doc.email;
+  console.log(req.body.loan_no); //prints john
+  db.collection('moratorium').find({}).toArray(function(err, doc){
+    for(var i=0;i<doc.length;i++)
+    {
+      if(aes256.decrypt(key,doc[i]['loan_no'])===loan_no)
+    {
+      l=aes256.decrypt(key,doc[i]['loan_no']);
+      console.log("Loan No");
+      console.log(l);
+      console.log(doc[i]['loan_no'])
+      myquery = { loan_no: doc[i]['loan_no'] };
+      newvalues = { $set: {month: month_no, status: "Approved" } };
+
+      db.collection("moratorium").updateOne(myquery, newvalues, function(err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
+       // console.log(res);
+      });
+      var email=doc[i]['email'];
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -783,26 +792,34 @@ app.post('/approve', urlencodedParser, function (req, res) {
         console.log('Email sent: ' + info.response);
       }
     });
-    //console.log(email);
+    res.redirect('/approved'); 
     }
-    });
-  res.redirect('/approved');  
+    }
+  });
 });
 
 //Reject Record
 app.post('/reject', urlencodedParser, function (req, res) {
   var loan_no = req.body.loan_no;
+  var l,myquery,newvalues;
   console.log(req.body.loan_no); //prints john
-  var myquery = { loan_no: loan_no };
-  var newvalues = { $set: {status: "Rejected" } };
-  db.collection("moratorium").updateOne(myquery, newvalues, function(err, res) {
-      if (err) throw err;
-      console.log("1 document updated");
-  });
-   db.collection('moratorium').findOne({}, function(err, doc){
-    if(err) throw err;
-    if(aes256.decrypt(key,doc.loan_no)=== loan_no) {
-    var email=doc.email;
+  db.collection('moratorium').find({}).toArray(function(err, doc){
+    for(var i=0;i<doc.length;i++)
+    {
+      if(aes256.decrypt(key,doc[i]['loan_no'])===loan_no)
+    {
+      l=aes256.decrypt(key,doc[i]['loan_no']);
+      console.log("Loan No");
+      console.log(l);
+      console.log(doc[i]['loan_no'])
+      myquery = { loan_no: doc[i]['loan_no'] };
+      newvalues = { $set: {status: "Rejected" } };
+      db.collection("moratorium").updateOne(myquery, newvalues, function(err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
+       // console.log(res);
+    });
+    var email=doc[i]['email'];
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -814,7 +831,7 @@ app.post('/reject', urlencodedParser, function (req, res) {
       from: 'moratoriumbank@gmail.com',
       to: email,
       subject: 'Moratorium Request Rejected',
-     text: 'Hi, '+email+' Sorry, Your Moratorium Request for Loan No: '+loan_no+' is Rejected.'
+      text: 'Hi, '+email+' Sorry, Your Moratorium Request for Loan No: '+loan_no+' is Rejected.'
     };
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
@@ -823,10 +840,10 @@ app.post('/reject', urlencodedParser, function (req, res) {
         console.log('Email sent: ' + info.response);
       }
     });
-    //console.log(email);
+    res.redirect('/rejected');
+  }
     }
-    });
-  res.redirect('/rejected');  
+  });
 });
 
 //Admin Login Authentication
