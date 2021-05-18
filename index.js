@@ -656,7 +656,22 @@ app.get('/pending', (req, res) =>{
             area_zone: doc[0]['area_zone'],
             status: doc[0]['status']
           }]
-          res.render('approved_table', { details: details,status:"Approved"})
+          res.render('pending_table', { details: details,status:"Pending"})
+      }else{
+         details=[{
+            account_no:doc[0]['account_no'],
+            loan_no:doc[0]['loan_no'],
+            income_source: doc[0]['income_source'],
+            income: doc[0]['income'],
+            month: doc[0]['month'],
+            reason: doc[0]['reason'],
+            covid_effect: doc[0]['covid_effect'],
+            rent_pay: doc[0]['rent_pay'],
+            area_zone: doc[0]['area_zone'],
+            status: doc[0]['status']
+          }]
+          res.render('pending_table', { details: details,status:"Pending"})
+      
       }
   });
 });
@@ -671,6 +686,20 @@ app.get('/approved', (req, res) =>{
           details=[{
             account_no: aes256.decrypt(key,doc[0]['account_no']),
             loan_no: aes256.decrypt(key,doc[0]['loan_no']),
+            income_source: doc[0]['income_source'],
+            income: doc[0]['income'],
+            month: doc[0]['month'],
+            reason: doc[0]['reason'],
+            covid_effect: doc[0]['covid_effect'],
+            rent_pay: doc[0]['rent_pay'],
+            area_zone: doc[0]['area_zone'],
+            status: doc[0]['status']
+          }]
+          res.render('approved_table', { details: details,status:"Approved"})
+      }else{
+      details=[{
+            account_no:doc[0]['account_no'],
+            loan_no:doc[0]['loan_no'],
             income_source: doc[0]['income_source'],
             income: doc[0]['income'],
             month: doc[0]['month'],
@@ -705,7 +734,22 @@ app.get('/rejected', (req, res) =>{
             area_zone: doc[0]['area_zone'],
             status: doc[0]['status']
           }]
-          res.render('approved_table', { details: details,status:"Approved"})
+          res.render('rejected_table', { details: details,status:"Rejected"})
+      }else{
+        details=[{
+            account_no: doc[0]['account_no'],
+            loan_no: doc[0]['loan_no'],
+            income_source: doc[0]['income_source'],
+            income: doc[0]['income'],
+            month: doc[0]['month'],
+            reason: doc[0]['reason'],
+            covid_effect: doc[0]['covid_effect'],
+            rent_pay: doc[0]['rent_pay'],
+            area_zone: doc[0]['area_zone'],
+            status: doc[0]['status']
+          }]
+          res.render('rejected_table', { details: details,status:"Rejected"})
+      
       }
   });
 });
