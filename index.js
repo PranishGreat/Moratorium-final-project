@@ -677,7 +677,9 @@ app.get('/pending', (req, res) =>{
             covid_effect: doc[i]['covid_effect'],
             rent_pay: doc[i]['rent_pay'],
             area_zone: doc[i]['area_zone'],
+            applied_date: doc[i]['applied_date'],
             status: doc[i]['status']
+            
           }]
           details=details.concat(detail);
         }
@@ -707,6 +709,7 @@ app.get('/approved', (req, res) =>{
             covid_effect: doc[i]['covid_effect'],
             rent_pay: doc[i]['rent_pay'],
             area_zone: doc[i]['area_zone'],
+            applied_date: doc[i]['applied_date'],
             status: doc[i]['status']
           }]
           details=details.concat(detail);
@@ -737,6 +740,7 @@ app.get('/rejected', (req, res) =>{
             covid_effect: doc[i]['covid_effect'],
             rent_pay: doc[i]['rent_pay'],
             area_zone: doc[i]['area_zone'],
+            applied_date: doc[i]['applied_date'],
             status: doc[i]['status']
           }]
           details=details.concat(detail);
