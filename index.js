@@ -127,15 +127,15 @@ app.get('/login',(req,res)=>{
   var details=[];
   
 
-db.collection("moratorium").find({email:sess.email}).toArray(function(err, result1) {
+db.collection("moratorium").find({email:sess.email},function(err, result1) {
   if (err) throw err;
   details=[{
-    account_no: aes256.decrypt(key,result1[0]['account_no']),
-    loan_no: aes256.decrypt(key,result1[0]['loan_no']),
-    loan_name: result1[0]['loan_name'],
-    income: result1[0]['income'],
-    month: result1[0]['month'],
-    status: result1[0]['status'] 
+    account_no: aes256.decrypt(key,result1.account_no),
+    loan_no: aes256.decrypt(key,result1.loan_no),
+    loan_name: result1.loan_name,
+    income: result1.income,
+    month: result1.month,
+    status: result1.status 
   }]
 })
 
