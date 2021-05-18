@@ -643,7 +643,19 @@ app.get('/pending', (req, res) =>{
       if (err) {
           console.log(err);
       } else {
-          res.render('pending_table', { details: doc,status:"Pending"})
+        details=[{
+            account_no: aes256.decrypt(key,doc[0]['account_no']),
+            loan_no: aes256.decrypt(key,doc[0]['loan_no']),
+            income_source: doc[0]['income_source'],
+            income: doc[0]['income'],
+            month: doc[0]['month'],
+            reason: doc[0]['reason'],
+            covid_effect: doc[0]['covid_effect'],
+            rent_pay: doc[0]['rent_pay'],
+            area_zone: doc[0]['area_zone'],
+            status: doc[0]['status']
+          }]
+          res.render('pending_table', { details: details,status:"Pending"})
       }
   });
 });
@@ -653,9 +665,23 @@ app.get('/approved', (req, res) =>{
   db.collection('moratorium').find({status:"Approved"}).toArray(function(err, doc){
       if (err) {
           console.log(err);
+          
       } else {
-          res.render('approved_table', { details: doc,status:"Approved"})
+          details=[{
+            account_no: aes256.decrypt(key,doc[0]['account_no']),
+            loan_no: aes256.decrypt(key,doc[0]['loan_no']),
+            income_source: doc[0]['income_source'],
+            income: doc[0]['income'],
+            month: doc[0]['month'],
+            reason: doc[0]['reason'],
+            covid_effect: doc[0]['covid_effect'],
+            rent_pay: doc[0]['rent_pay'],
+            area_zone: doc[0]['area_zone'],
+            status: doc[0]['status']
+          }]
+          res.render('approved_table', { details: details,status:"Approved"})
       }
+    
   });
 });
 
@@ -665,7 +691,19 @@ app.get('/rejected', (req, res) =>{
       if (err) {
           console.log(err);
       } else {
-          res.render('rejected_table', { details: doc,status:"Rejected"})
+        details=[{
+            account_no: aes256.decrypt(key,doc[0]['account_no']),
+            loan_no: aes256.decrypt(key,doc[0]['loan_no']),
+            income_source: doc[0]['income_source'],
+            income: doc[0]['income'],
+            month: doc[0]['month'],
+            reason: doc[0]['reason'],
+            covid_effect: doc[0]['covid_effect'],
+            rent_pay: doc[0]['rent_pay'],
+            area_zone: doc[0]['area_zone'],
+            status: doc[0]['status']
+          }]
+          res.render('rejected_table', { details: details,status:"Rejected"})
       }
   });
 });
