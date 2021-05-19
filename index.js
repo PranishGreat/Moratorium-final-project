@@ -876,7 +876,13 @@ app.post("/api_auth", urlencodedParser, function (req, res) {
     .find({ email: email })
     .toArray(function (err, result1) {
       if (err) throw err;
-      details = result1;
+      details = [{
+            loan_no: aes256.decrypt(key,doc[i]['loan_no']),
+            loan_name: doc[i]['loan_name'],
+            month: doc[i]['month'],
+            applied_date: doc[i]['applied_date'],
+            status: doc[i]['status']
+      }]
     });
   // Getting details of user
   db.collection("user")
