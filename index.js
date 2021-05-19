@@ -866,7 +866,7 @@ app.post('/admin_auth', urlencodedParser, function (req, res) {
 app.post("/api_auth", urlencodedParser, function (req, res) {
   var email = req.body.email;
   var pass = req.body.password;
-
+  var details=[];
   // var pass = aes256.encrypt(key, reqpass);
   // var pass_dec = aes256.decrypt(key, pass);
   // console.log("STR Here Encrypted \t" + pass + "\n");
@@ -876,14 +876,23 @@ app.post("/api_auth", urlencodedParser, function (req, res) {
     .find({ email: email })
     .toArray(function (err, doc) {
       if (err) throw err;
-      details = [{
+       var detail=[];
+        
+        for(var i=0;i<doc.length;i++)
+        {
+      detail= [{
             loan_no: aes256.decrypt(key,doc['loan_no']),
             loan_name: doc['loan_name'],
             month: doc['month'],
             applied_date: doc['applied_date'],
             status: doc['status']
       }]
+          details=details.concat(detail);
+        }    
     });
+    
+    
+ 
   // Getting details of user
   db.collection("user")
     .find({ email: email })
