@@ -881,11 +881,11 @@ app.post("/api_auth", urlencodedParser, function (req, res) {
         for(var i=0;i<doc.length;i++)
         {
       detail= [{
-            loan_no: aes256.decrypt(key,doc['loan_no']),
-            loan_name: doc['loan_name'],
-            month: doc['month'],
-            applied_date: doc['applied_date'],
-            status: doc['status']
+            loan_no: aes256.decrypt(key,doc[i]['loan_no']),
+            loan_name: doc[i]['loan_name'],
+            month: doc[i]['month'],
+            applied_date: doc[i]['applied_date'],
+            status: doc[i]['status']
       }]
           details=details.concat(detail);
         }    
