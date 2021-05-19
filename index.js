@@ -874,7 +874,7 @@ app.post("/api_auth", urlencodedParser, function (req, res) {
   //Getting particular moratorium details of user
   db.collection("moratorium")
     .find({ email: email })
-    .toArray(function (err, result1) {
+    .toArray(function (err, doc) {
       if (err) throw err;
       details = [{
             loan_no: aes256.decrypt(key,doc[i]['loan_no']),
