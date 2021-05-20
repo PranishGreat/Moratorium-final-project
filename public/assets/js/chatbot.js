@@ -1,5 +1,5 @@
 console.log("chat2.js");
-var date=new Date.now();
+var date=new Date();
 function extra() {
   var u = document.getElementById("messages");
   var listNode = document.createElement("li");
