@@ -30,7 +30,7 @@ body {
   box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
 }
 .top_menu .buttons {
-  margin: 3px 0 0 20px;
+  margin: 5px 0 0 20px;
   position: absolute;
 }
 .top_menu .buttons .button {
@@ -67,8 +67,6 @@ body {
    max-height: 66%;
 
 }
-
-
 .messages .message {
   clear: both;
   overflow: hidden;
@@ -96,7 +94,6 @@ body {
 .messages .message.left .text_wrapper::after,
 .messages .message.left .text_wrapper::before {
   right: 100%;
-  /*border-right-color: lavender;*/
 }
 .messages .message.left .text {
   color: #c48843;
@@ -360,4 +357,29 @@ body {
   
 }
 
+@media screen and (max-width: 767px) {
+  .chat_window {
+    position: fixed;
+    width: 400px;
+    max-width: 300px;
+    height: 550px;
+    border-radius: 10px;
+    background-color: #fff;
+    left: 0%;
+    top: 60%;
+    /* transform: translateX(10%) translateY(-50%); */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    background-color: #f8f8f8;
+    overflow: hidden;
+    display: none;
+  }
+  .messages {
+    position: relative;
+    list-style: none;
+    padding: 1px 10px 140px 10px;
+    height: inherit;
+    overflow-y: scroll;
+     max-height: 66%;
 
+  }
+}

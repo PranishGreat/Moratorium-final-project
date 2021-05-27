@@ -1,3 +1,9 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome/
+4.7.0/css/font-awesome.min.css">
+
 <div class="middle" onclick="openChat()">
   <div class="popup bubble bubble-bottom-left middle" id="popup">
   <p>Chat Here...</p>
@@ -9,10 +15,7 @@
 <div class="chat_window" id="openChat">
   <div class="top_menu">
     <div class="buttons" onclick="closeChat()">
-      <!--<div class="button close"></div>-->
-      <button type="button" class="close" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+      <button type="button" class="close" aria-label="Close" ><i class="fa fa-close" style="font-size:22px;color:red"></i></button>
     </div>
     <div class="title">Virtual Assistant</div>
   </div>
@@ -22,22 +25,8 @@
     <li class="message left appeared">
      <div class="avatar"><img class="imgs" src="img/bot.jpg" /></div>
       <div class="text_wrapper">
-        <div class="text">hey!<br>How can I help you?</div>
+        <div class="text">Hey!<br>How can I help you?</div>
       </div>
-    </li>
-    <li class="message left appeared">
-      <div class="singleCard">
-        <div class="suggestions">
-          <div class="menu">
-            <div class="menuChips" data-payload="/menu">Title</div>
-          </div>
-        </div>
-      </div>
-    </li>
-    <li class="message left appeared">
-      <div class="singleCard">
-      <img class="imgcard" src="img/baam.webp">
-        </div><div class="clearfix">
     </li>
   </ul>
 
@@ -59,11 +48,12 @@
       <input
         id="userMessage"
         class="message_input"
-        placeholder="Type your message here..."
+        placeholder="Type your message here..." onkeypress="return
+        enterKeyPressed(event)"
       />
     </div>
     <div
-      class="send_message"
+      class="send_message" id="chatbtn"
       onclick="setUserResponce(document.getElementById('userMessage').value);"
     >
       <div class="icon"></div>
@@ -79,3 +69,14 @@
     </div>
   </li>
 </div>
+
+<script>
+  var input = document.getElementById("userMessage");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("chatbtn").click();
+   console.log("x");
+  }
+});
+</script>
