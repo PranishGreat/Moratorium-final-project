@@ -17,19 +17,22 @@ function extra() {
   divWrap.appendChild(divText);
   u.appendChild(listNode);
 }
+
 function setUserResponce(text) {
   var ele =
     '<li class="message right appeared"><div class="avatar"><img class="imgs" src="img/user.png" /></div><div class="text_wrapper"><div class="text">' +
     text +
     "</div></div></li>";
-	$(ele).appendTo(".messages");
+    if(text.length>=1)
+    { $(ele).appendTo(".messages");
+      callToApi(text);
+    }
+    else
+    {
+      swal("Wrong!", "Please Enter Characters", "error");
+    }
   cleartext();
-  scrollToBottomOfResults();
-  
-  callToApi(text);
-  
 }
-
 function setBotResponce(test) {
   console.log(test);
   var ele =

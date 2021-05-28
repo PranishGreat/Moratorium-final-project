@@ -17,7 +17,7 @@ body {
   top: 50%;
   transform: translateX(10%) translateY(-50%);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  background-color: #f7d4d4;
+  background-color: #fdfdfd;
   overflow: hidden;
   display: none;
   z-index:2;
