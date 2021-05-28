@@ -19,8 +19,6 @@
     </div>
     <div class="title">Virtual Assistant</div>
   </div>
-  <!-- <ul class="messages"></ul> -->
-
   <ul class="messages" id="msgul">
     <li class="message left appeared">
      <div class="avatar"><img class="imgs" src="img/bot.jpg" /></div>
@@ -31,12 +29,7 @@
   </ul>
   <div class="bottom_wrapper clearfix">
     <div class="message_input_wrapper">
-      <input
-        id="userMessage"
-        class="message_input"
-        placeholder="Type your message here..." onkeypress="return
-        enterKeyPressed(event)"
-      />
+      <input id="userMessage" class="message_input"  minlength="1" pattern="/^[a-z]+[0-9_\/\s,.-]+$/i"  placeholder="Ask me something" onkeypress="return enterKeyPressed(event)" required='true' />
     </div>
     <div
       class="send_message" id="chatbtn"
@@ -62,7 +55,6 @@ input.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
    event.preventDefault();
    document.getElementById("chatbtn").click();
-   console.log("x");
   }
 });
 </script>

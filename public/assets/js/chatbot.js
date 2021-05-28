@@ -58,7 +58,7 @@ function setBotResponceBtn(val) {
     "</li>";
 
   $(ele).appendTo(".messages");
-  scrollToBottomOfResults();
+  // scrollToBottomOfResults();
 }
 
 function setBotResponceImg(val) {
@@ -92,7 +92,6 @@ async function callToApi(text) {
 
   response = await fetch(url, option);
   ResponseData = await response.json();
-  console.log(ResponseData);
   filterBot(ResponseData);
 }
 
@@ -116,7 +115,6 @@ function addSuggestion(buttons) {
   var suggLength = buttons.length;
   for (i = 0; i < suggLength; i++) {
     setBotResponceBtn(suggestions[i]);
-    console.log(suggestions[i].title + "from ");
   }
 }
 $(document).on("click", ".menu .menuChips", function () {
@@ -165,5 +163,7 @@ function scrollToBottomOfResults() {
 	const messages = document.getElementById('msgul');
 	messages.scrollTop = messages.scrollHeight;
   }
+
+
 
 
