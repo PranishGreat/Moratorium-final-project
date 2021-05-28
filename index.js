@@ -979,3 +979,5 @@ app.get("/api_news",(req,res)=>{
     res.send({news:result});  
   });
 })
+
+app.get('*', (req, res) => res.render('404.ejs'));

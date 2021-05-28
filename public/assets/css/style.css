@@ -1317,3 +1317,73 @@ h1 span {
     padding:0 0;
   }
 }
+
+
+
+------------------------------------
+/* Card View */
+------------------------------------
+
+#cardd{
+  position:relative;
+  width:50%;
+  height:50%;
+  background-color:#edf2f4;
+  align-content:center;
+  margin:auto;
+
+}
+.pp{
+  width:120px;
+  border-radius: 50%;
+  display: flexbox;
+  justify-content: center;
+  margin-top:-20%;
+  border:solid 3px #edf2f4 ;
+
+}
+
+ #services {
+  text-align: center;
+  transform: translatez(0);
+}
+
+ #services li {
+  width: 20px;
+  height: 30px;
+  display: inline-block;
+  margin: 20px;
+  list-style: none;
+  
+}
+ #services li .linkedin {
+  width: 40px;
+  height: 40px;
+  color: #ffffff;
+  /* font-size: 3.4em; */
+  text-align: center;
+  line-height: 40px;
+  border-radius: 7%;
+  background-color: rgba(0, 110, 253, 0.959);
+  transition: all 0.5s ease;
+}
+#services li  .github {
+  width: 40px;
+  height: 40px;
+  color: #ffffff;
+  /* font-size: 3.4em; */
+  text-align: center;
+  border-radius: 7%;
+  line-height: 40px;
+  background-color: rgb(22, 22, 22);
+  transition: all 0.5s ease;
+}
+
+#services li a  {
+  color: #77cc6d;
+}
+ #services li div:hover {
+  transform: rotate(360deg);
+  border-radius: 100%;
+}
+

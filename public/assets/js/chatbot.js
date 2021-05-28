@@ -15,7 +15,6 @@ function extra() {
   listNode.appendChild(divAvatar);
   listNode.appendChild(divWrap);
   divWrap.appendChild(divText);
-  console.log(u);
   u.appendChild(listNode);
 }
 function setUserResponce(text) {
