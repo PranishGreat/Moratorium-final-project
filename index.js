@@ -38,7 +38,6 @@ const port=process.env.PORT || 8040;
 
 app.listen(port, ()=>logger.log('info',`Server connected to ${port}`));
 
-
 //Mongo Connection section
 mongoose.connect("mongodb+srv://abcd:abcd@cluster0.ksrqf.mongodb.net/myDB?retryWrites=true&w=majority", {
   useUnifiedTopology: true,
@@ -53,17 +52,17 @@ db.once("open", function() {
 });
 //Mongo Connection section end
 
-//News
+//Mongoose News Schema
 var schema = mongoose.Schema({
   text: { type: String},
   Link1: { type: String},
   time : { type : Date, default: Date.now }
 });
-// Mongooes cha model
+// Mongoose Model
 var Model = mongoose.model("model", schema, "news");
 
 
-//Mongo Schema 
+//Mongoose User Schema 
 var userSchema = mongoose.Schema({
   username:String,email:String,password:String,mobile:Number,name:String,dob:String,aadhar:Number,address:String,bank_name:String,moratorium_acc:Number,status:Boolean
 });
@@ -516,10 +515,7 @@ app.get('/updatefail',(req,res)=>{
     var contact_email =req.body.contact_email; 
     var contact_subject = req.body.contact_subject; 
     var contact_message = req.body.contact_message; 
-    
-    // console.log("session in contact"+sess.email)
-     sess=req.session;
-     console.log(sess.email)
+    sess=req.session;
   var data ={
       "contact_name": contact_name, 
       "contact_email": contact_email, 
@@ -747,8 +743,7 @@ app.post('/approve', urlencodedParser, function (req, res) {
   var month_no = req.body.month_no; 
   var loan_no = req.body.loan_no;
   var l,myquery,newvalues;
-  console.log(month_no);
-  console.log(req.body.loan_no); //prints john
+
   db.collection('moratorium').find({}).toArray(function(err, doc){
     for(var i=0;i<doc.length;i++)
     {
@@ -763,8 +758,6 @@ app.post('/approve', urlencodedParser, function (req, res) {
 
       db.collection("moratorium").updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
-        console.log("1 document updated");
-       // console.log(res);
       });
       var email=doc[i]['email'];
     var transporter = nodemailer.createTransport({
@@ -797,7 +790,7 @@ app.post('/approve', urlencodedParser, function (req, res) {
 app.post('/reject', urlencodedParser, function (req, res) {
   var loan_no = req.body.loan_no;
   var l,myquery,newvalues;
-  console.log(req.body.loan_no); //prints john
+  console.log(req.body.loan_no); 
   db.collection('moratorium').find({}).toArray(function(err, doc){
     for(var i=0;i<doc.length;i++)
     {
@@ -812,7 +805,6 @@ app.post('/reject', urlencodedParser, function (req, res) {
       db.collection("moratorium").updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
         console.log("1 document updated");
-       // console.log(res);
     });
     var email=doc[i]['email'];
     var transporter = nodemailer.createTransport({
@@ -867,11 +859,6 @@ app.post("/api_auth", urlencodedParser, function (req, res) {
   var email = req.body.email;
   var pass = req.body.password;
   var details=[];
-  // var pass = aes256.encrypt(key, reqpass);
-  // var pass_dec = aes256.decrypt(key, pass);
-  // console.log("STR Here Encrypted \t" + pass + "\n");
-  // console.log("STR Here Decrypted \t" + pass_dec + "\n");
-  //Getting particular moratorium details of user
   db.collection("moratorium")
     .find({ email: email })
     .toArray(function (err, doc) {
@@ -898,8 +885,6 @@ app.post("/api_auth", urlencodedParser, function (req, res) {
     .find({ email: email })
     .toArray(function (err, result) {
       if (err) throw err;
-      // userdata = result;
-      // console.log(aes256.decrypt(key, result[0]["aadhar"]));
       userdata = [
         {
           _id: result[0]["_id"],

@@ -76,11 +76,6 @@ function setBotResponceImg(val) {
 
 }
 
-
-// window.onload = function () {
-//   setBotResponce();
-// };
-
 async function callToApi(text) {
   data = {
     sender:""+date,
@@ -100,9 +95,7 @@ async function callToApi(text) {
   console.log(ResponseData);
   filterBot(ResponseData);
 }
-// setBotResponce("Hello");
-// TODO: Add scroll to end
-// TODO: connect to api
+
 
 function filterBot(val) {
   for (i = 0; i < val.length; i++) {
@@ -173,22 +166,4 @@ function scrollToBottomOfResults() {
 	messages.scrollTop = messages.scrollHeight;
   }
 
-//   $(".message_input").on("keydown", function(e){
-//     // if (e.which == 13){
-//         var text = $(this).val();
-//         // if (text !== ""){
-//             setUserResponce(text);
-//             //callToApi(text);          
-//     //         $(this).val('');
-//     //     }
-//     // // }
-// });
 
-// $('.message_input').keypress(function (e) {
-// 	if (e.which == 13) {
-// 		var text = $(this).val();
-// 		setUserResponce(text);
-// 		console.log("hihelllo");
-// 	  return false;    //<---- Add this line
-// 	}
-//   });
