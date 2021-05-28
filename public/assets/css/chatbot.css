@@ -282,10 +282,16 @@ body {
   display: flex;
   margin: auto;
   width: 100%;
+  padding: 2px 2px 2px 2px;
+  border-radius: 80%;
+}
+.imgs1 {
+  display: flex;
+  margin: auto;
+  width: 100%;
   padding: 0px 5px 2px 2px;
   border-radius: 80%;
 }
-
 .menu {
   padding: none;
 }
