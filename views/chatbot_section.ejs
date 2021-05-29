@@ -6,7 +6,7 @@
 
 <div class="middle" onclick="openChat()">
   <div class="popup bubble bubble-bottom-left middle" id="popup">
-  <p>Chat Here...</p>
+  <p id="chat_here">Chat Here...</p>
 </div>
   <a class="botbtn" href="#">
     <img class="imgs1" src="assets/img/bott.png" />
@@ -15,7 +15,7 @@
 <div class="chat_window" id="openChat">
   <div class="top_menu">
     <div class="buttons" onclick="closeChat()">
-      <button type="button" class="close" aria-label="Close" ><i class="fa fa-close" style="font-size:22px;color:red"></i></button>
+      <button type="button" class="close" aria-label="Close" ><i class="fa fa-close" style="font-size:22px;color:white"></i></button>
     </div>
     <div class="title">Virtual Assistant</div>
   </div>
@@ -29,14 +29,14 @@
   </ul>
   <div class="bottom_wrapper clearfix">
     <div class="message_input_wrapper">
-      <input id="userMessage" class="message_input"  minlength="1" pattern="/^[a-z]+[0-9_\/\s,.-]+$/i"  placeholder="Ask me something" onkeypress="return enterKeyPressed(event)" required='true' />
+      <input id="userMessage" class="message_input"  minlength="1" pattern="/^[a-z]+[0-9_\/\s,.-]+$/i"  placeholder="Ask me something...." onkeypress="return enterKeyPressed(event)" required='true' />
     </div>
     <div
       class="send_message" id="chatbtn"
       onclick="setUserResponce(document.getElementById('userMessage').value);"
     >
       <div class="icon"></div>
-      <div class="text">Send</div>
+      <div class="text"><i class="fa fa-paper-plane" aria-hidden="true"></i></div>
     </div>
   </div>
 </div>

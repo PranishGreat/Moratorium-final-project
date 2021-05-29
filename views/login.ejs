@@ -154,20 +154,23 @@
           <h4 class="modal-title">My Profile Information</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
+        <% if (result.length >0){ %>
+          <% result.forEach(function(row){ %>
         <div class="modal-body">
           <div class="form-style-1" style="overflow: auto; text-align: center; display: block;">
             <form id='myform' action='/update' method='POST' enctype="application/x-www-form-urlencoded" >
-            <div class="group"> <label for="user" class="label" >Name <span class="required">*</span></label> <input id="updatename" name='update_name' type="text" class="input" placeholder="Enter Full Name" required> </div><br>
-            <div class="group"> <label for="pass" class="label">Mobile No. <span class="required">*</span></label> <input id="mobile" name="update_mobile" type="text" class="input" pattern="[7-9][0-9]{9}" placeholder="Enter Mobile No."  required> </div><br>
-            <div class="group"> <label for="pass" class="label">Aadhar No. <span class="required">*</span></label> <input id="aadhar" name="update_aadhar" type="text" class="input" pattern="^\d{4}\d{4}\d{4}$" placeholder="Enter Aadhar No."  required> </div><br>
-            <div class="group"> <label for="pass" class="label">Bank Name <span class="required">*</span></label> <input id="bank" name="update_bank" type="text" class="input" placeholder="Enter Bank Name" required> </div><br>
-            <div class="group"> <label for="pass" class="label">Moratorium Account No. <span class="required">*</span></label> <input id="acc" name="update_acc" type="text" pattern="^\d{9,18}$" class="input" placeholder="Enter Moratorium Account No." required> </div><br>
-            <div class="group"> <label for="pass" class="label">Address <span class="required">*</span></label> <input id="update_address" name="update_address" type="text" class="input" placeholder="Enter Address" required> </div><br>
-            <div class="group"> <label for="pass" class="label">DOB <span class="required">*</span></label> <input id="bank" name="update_dob" type="date" class="input" placeholder="Enter Date of Birth" required> </div><br>           
+            <div class="group"> <label for="user" class="label" >Name <span class="required">*</span></label> <input id="updatename" name='update_name' type="text" class="input" value='<%= row.name %>' placeholder="Enter Full Name" required> </div><br>
+            <div class="group"> <label for="pass" class="label">Mobile No. <span class="required">*</span></label> <input id="mobile" name="update_mobile" type="text" class="input" value='<%= row.mobile %>' pattern="[7-9][0-9]{9}" placeholder="Enter Mobile No."  required> </div><br>
+            <div class="group"> <label for="pass" class="label">Aadhar No. <span class="required">*</span></label> <input id="aadhar" name="update_aadhar" type="text" class="input" value='<%= row.aadhar %>' pattern="^\d{4}\d{4}\d{4}$" placeholder="Enter Aadhar No."  required> </div><br>
+            <div class="group"> <label for="pass" class="label">Bank Name <span class="required">*</span></label> <input id="bank" name="update_bank" type="text" class="input" value='<%= row.bank_name %>' placeholder="Enter Bank Name" required> </div><br>
+            <div class="group"> <label for="pass" class="label">Moratorium Account No. <span class="required">*</span></label> <input id="acc" name="update_acc" type="text" pattern="^\d{9,18}$" class="input" value='<%= row.moratorium_acc %>' placeholder="Enter Moratorium Account No." required> </div><br>
+            <div class="group"> <label for="pass" class="label">Address <span class="required">*</span></label> <input id="update_address" name="update_address" type="text" class="input" value='<%= row.address %>' placeholder="Enter Address" required> </div><br>
+            <div class="group"> <label for="pass" class="label">DOB <span class="required">*</span></label> <input id="bank" name="update_dob" type="date" class="input" value='<%= row.dob %>' placeholder="Enter Date of Birth" required> </div><br>           
             <div class="group"> <input id='register' class='btn btn-dark' type='submit' style="display: block; margin: 0 auto;" value="Update !" ></div>
             </form>        
+          </div>
         </div>
-        </div>
+        <% })} %> 
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
@@ -276,6 +279,15 @@
           </div>
           <div class="col-sm-9 text-secondary">
             <input type='text' class='w3-input' value='<%= row.moratorium_acc %>' placeholder="Update Information!" disabled/>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="mb-0">Date Of Birth</h6>
+          </div>
+          <div class="col-sm-9 text-secondary">
+            <input type='text' class='w3-input' value='<%= row.dob %>' placeholder="Update Information!" disabled/>
           </div>
         </div>
         <% })} %> 

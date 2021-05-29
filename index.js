@@ -112,6 +112,7 @@ app.get('/login',(req,res)=>{
   sess = req.session;
     if(sess.email) {
         console.log("User on Session:-  "+sess.email) 
+        logger.log('info',"User on Session:-  "+sess.email);
     }
     else {
         console.log('User Not Found');   
@@ -159,7 +160,8 @@ if(result[0]['status']===false)
           mobile: aes256.decrypt(key,result[0]['mobile']),
           aadhar: aes256.decrypt(key,result[0]['aadhar']),
           bank_name: aes256.decrypt(key,result[0]['bank_name']),
-          moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc'])
+          moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc']),
+          dob: result[0]['dob']
         }]
       }
     res.render('login', {result:result5,status:result[0]['status'],state:loginState,details:details,updateState:false,updateState1:false});
@@ -217,7 +219,8 @@ app.get('/loginsuccess',(req,res)=>{
           mobile: aes256.decrypt(key,result[0]['mobile']),
           aadhar: aes256.decrypt(key,result[0]['aadhar']),
           bank_name: aes256.decrypt(key,result[0]['bank_name']),
-          moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc'])
+          moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc']),
+          dob: result[0]['dob']
         }]
       }
      res.render('login', {result:result5,status:result[0]['status'],state:loginState,details:details,updateState:false,updateState1:false});
@@ -448,7 +451,8 @@ app.get('/updatesuccess',(req,res)=>{
         mobile: aes256.decrypt(key,result[0]['mobile']),
         aadhar: aes256.decrypt(key,result[0]['aadhar']),
         bank_name: aes256.decrypt(key,result[0]['bank_name']),
-        moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc'])    
+        moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc'])  ,
+        dob: result[0]['dob']  
       }]
     }
     res.render('login', {result:result5,status:result[0]['status'],state:loginState,details:details,updateState:updateState,updateState1:true});
@@ -503,7 +507,8 @@ app.get('/updatefail',(req,res)=>{
         mobile: aes256.decrypt(key,result[0]['mobile']),
         aadhar: aes256.decrypt(key,result[0]['aadhar']),
         bank_name: aes256.decrypt(key,result[0]['bank_name']),
-        moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc'])    
+        moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc']),
+        dob: result[0]['dob']  
       }]
     }
     res.render('login', {result:result5,status:result[0]['status'],state:loginState,details:details,updateState:updateState,updateState1:false});
