@@ -930,7 +930,8 @@ app.post("/api_auth", urlencodedParser, function (req, res) {
 });
 
 app.post('/api_update', urlencodedParser, function (req, res) {
-  var name = req.body.update_name; 
+  var name = req.body.update_name;
+  var email = req.body.email;
   var mobile = aes256.encrypt(key,req.body.update_mobile); 
   var aadhar = aes256.encrypt(key,req.body.update_aadhar); 
   var bank = aes256.encrypt(key,req.body.update_bank); 
@@ -938,7 +939,7 @@ app.post('/api_update', urlencodedParser, function (req, res) {
   var address = req.body.update_address; 
   var dob = req.body.update_dob; 
 
-  var myquery = { email: sess.email };
+  var myquery = { email: email };
   var newvalues = { $set: {"name":name,"mobile":mobile,"dob":dob,"aadhar":aadhar,"address":address,"moratorium_acc":acc,"bank_name":bank,"status":true } };
 
    db.collection('aadhar').findOne({aadhar: aes256.decrypt(key,aadhar)}, function(err, doc){
