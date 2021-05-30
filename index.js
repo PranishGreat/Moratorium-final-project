@@ -147,7 +147,7 @@ db.collection("moratorium").find({email:sess.email}).toArray(function(err, resul
    db.collection("user").find({email:sess.email}).sort(mysort).toArray(function(err, result) {
     if (err) throw err;
     console.log(loginState)
-if(result[0]['status']===false)
+      if(result[0]['status']===false)
       {
         result5=result
       }
@@ -890,22 +890,42 @@ app.post("/api_auth", urlencodedParser, function (req, res) {
     .find({ email: email })
     .toArray(function (err, result) {
       if (err) throw err;
-      userdata = [
-        {
-          _id: result[0]["_id"],
-          username: result[0]["username"],
-          email: result[0]["email"],
-          password: aes256.decrypt(key, result[0]["password"]),
-          status: result[0]["status"],
-          aadhar: aes256.decrypt(key, result[0]["aadhar"]),
-          address: result[0]["address"],
-          bank_name: aes256.decrypt(key, result[0]["bank_name"]),
-          dob: result[0]["dob"],
-          mobile: aes256.decrypt(key, result[0]["mobile"]),
-          moratorium_acc: aes256.decrypt(key, result[0]["moratorium_acc"]),
-          name: result[0]["name"],
-        },
-      ];
+
+
+      if(result[0]['status']===false)
+      {
+        userdata=result
+      }
+      else
+      {
+        userdata=[{
+          username: result[0]['username'],
+          name: result[0]['name'],
+          address: result[0]['address'],
+          mobile: aes256.decrypt(key,result[0]['mobile']),
+          aadhar: aes256.decrypt(key,result[0]['aadhar']),
+          bank_name: aes256.decrypt(key,result[0]['bank_name']),
+          moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc']),
+          dob: result[0]['dob']
+        }]
+      }
+
+      // userdata = [
+      //   {
+      //     _id: result[0]["_id"],
+      //     username: result[0]["username"],
+      //     email: result[0]["email"],
+      //     password: aes256.decrypt(key, result[0]["password"]),
+      //     status: result[0]["status"],
+      //     aadhar: aes256.decrypt(key, result[0]["aadhar"]),
+      //     address: result[0]["address"],
+      //     bank_name: aes256.decrypt(key, result[0]["bank_name"]),
+      //     dob: result[0]["dob"],
+      //     mobile: aes256.decrypt(key, result[0]["mobile"]),
+      //     moratorium_acc: aes256.decrypt(key, result[0]["moratorium_acc"]),
+      //     name: result[0]["name"],
+      //   },
+      // ];
     });
 
   //Checking Credentials for User Login
