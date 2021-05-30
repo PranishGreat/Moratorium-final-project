@@ -970,8 +970,6 @@ app.post("/api_reg", urlencodedParser, function (req, res) {
     password: encrypted,
     status: status,
   });
-
-  if (pass === pass1) {
     db.collection("user").findOne({ email: email }, function (err, doc) {
       if (err) throw err;
       if (!doc) {
@@ -986,10 +984,6 @@ app.post("/api_reg", urlencodedParser, function (req, res) {
         res.send({ register_status: "Fail,Email already exist!" });
       }
     });
-  } else {
-    logger.log("error", "Password not matched");
-    res.redirect("/registerfail");
-  }
 });
 
 
