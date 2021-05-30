@@ -521,3 +521,29 @@ info: Server connected to 8040 {"timestamp":"2021-05-29 15:41:04"}
 info: Connection Successful! {"timestamp":"2021-05-29 15:41:08"}
 info: Server connected to 8040 {"timestamp":"2021-05-29 15:41:23"}
 info: Connection Successful! {"timestamp":"2021-05-29 15:41:26"}
+info: Server connected to 8040 {"timestamp":"2021-05-29 15:41:48"}
+info: Connection Successful! {"timestamp":"2021-05-29 15:41:52"}
+error: User Not Found {"timestamp":"2021-05-29 15:42:18"}
+error: Please, Login first {"timestamp":"2021-05-29 15:42:18"}
+error: Wrong Credentials  {"timestamp":"2021-05-29 15:42:47"}
+info: Session Created for User:-  pranishkumbhar37@gmail.com {"timestamp":"2021-05-29 15:43:13"}
+info: Session Created for User:-  pranishkumbhar37@gmail.com {"timestamp":"2021-05-29 15:44:29"}
+info: User on Session:-  pranishkumbhar37@gmail.com {"timestamp":"2021-05-29 15:44:43"}
+info: Session Created for User:-  pranishkumbhar37@gmail.com {"timestamp":"2021-05-29 15:45:09"}
+info: Information Updated!! {"timestamp":"2021-05-29 15:45:10"}
+info: Session Created for User:-  pranishkumbhar37@gmail.com {"timestamp":"2021-05-29 15:45:45"}
+info: Information Updated!! {"timestamp":"2021-05-29 15:45:45"}
+info: Session Created for User:-  pranishkumbhar37@gmail.com {"timestamp":"2021-05-29 15:45:59"}
+info: Information Updated!! {"timestamp":"2021-05-29 15:46:00"}
+info: Session Created for User:-  pranishkumbhar37@gmail.com {"timestamp":"2021-05-29 15:46:56"}
+info: Server connected to 8040 {"timestamp":"2021-05-30 11:51:57"}
+info: Connection Successful! {"timestamp":"2021-05-30 11:52:02"}
+info: Server connected to 8040 {"timestamp":"2021-05-30 11:53:05"}
+info: Server connected to 8040 {"timestamp":"2021-05-30 11:53:13"}
+info: Connection Successful! {"timestamp":"2021-05-30 11:53:16"}
+info: Server connected to 8040 {"timestamp":"2021-05-30 11:53:24"}
+info: Connection Successful! {"timestamp":"2021-05-30 11:53:27"}
+info: Server connected to 8040 {"timestamp":"2021-05-30 11:53:40"}
+info: Connection Successful! {"timestamp":"2021-05-30 11:53:44"}
+info: Server connected to 8040 {"timestamp":"2021-05-30 11:54:24"}
+info: Connection Successful! {"timestamp":"2021-05-30 11:54:30"}

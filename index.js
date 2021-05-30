@@ -929,34 +929,70 @@ app.post("/api_auth", urlencodedParser, function (req, res) {
   });
 });
 
-app.post('/api_reg', urlencodedParser, function (req, res) {
-  var username = req.body.username; 
-  var email =req.body.email1; 
-  var pass = req.body.password; 
-  var status=false;
-var data =new userModel({ 
-    "username": username, 
-    "email": email, 
-    "password": pass,
-    "status":status
-}) 
-  db.collection('user').findOne({ email: email }, function(err, doc){
-    if(err) throw err;
-    if(!doc) {
-      db.collection('user').insertOne(data,function(err, collection){ 
-        if (err) throw err;
-        console.log(data);
-        logger.log('info',"Record inserted Successfully"); 
-        }); 
-      res.send({register_status:"Success",userdata:data})
-    }else {
-        logger.log('info',"Found: " + email);
-        res.send({register_status:"Fail,Email already exist!"})
-    }
+app.post('/api_update', urlencodedParser, function (req, res) {
+  var name = req.body.update_name; 
+  var mobile = aes256.encrypt(key,req.body.update_mobile); 
+  var aadhar = aes256.encrypt(key,req.body.update_aadhar); 
+  var bank = aes256.encrypt(key,req.body.update_bank); 
+  var acc =aes256.encrypt(key,req.body.update_acc); 
+  var address = req.body.update_address; 
+  var dob = req.body.update_dob; 
 
+  var myquery = { email: sess.email };
+  var newvalues = { $set: {"name":name,"mobile":mobile,"dob":dob,"aadhar":aadhar,"address":address,"moratorium_acc":acc,"bank_name":bank,"status":true } };
+
+   db.collection('aadhar').findOne({aadhar: aes256.decrypt(key,aadhar)}, function(err, doc){
+    if (err) throw err;
+    if(doc)
+    {
+      db.collection("user").updateOne(myquery, newvalues, function(err,r) {
+        if (err) throw err; 
+        logger.log('info',"Information Updated!!");  
+      });
+      res.send({ register_status: "Success" });
+    }
+    else
+    {
+      res.send({ register_status: "Fail" });
+    }
+  });
+});
+
+app.post("/api_reg", urlencodedParser, function (req, res) {
+  var username = req.body.username;
+  var email = req.body.email1;
+  var pass = req.body.password;
+  var status = false;
+  var encrypted = aes256.encrypt(key, pass);
+  var data = new userModel({
+    username: username,
+    email: email,
+    password: encrypted,
+    status: status,
   });
 
-})
+  if (pass === pass1) {
+    db.collection("user").findOne({ email: email }, function (err, doc) {
+      if (err) throw err;
+      if (!doc) {
+        db.collection("user").insertOne(data, function (err, collection) {
+          if (err) throw err;
+          console.log(data);
+          logger.log("info", "Record inserted Successfully");
+        });
+        res.send({ register_status: "Success", userdata: data });
+      } else {
+        logger.log("info", "Found: " + email);
+        res.send({ register_status: "Fail,Email already exist!" });
+      }
+    });
+  } else {
+    logger.log("error", "Password not matched");
+    res.redirect("/registerfail");
+  }
+});
+
+
 
 app.get("/api_news",(req,res)=>{
   var mysort = { time: -1 };

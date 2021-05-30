@@ -315,7 +315,6 @@ body {
   border-radius: 15px;
   font-size: 14px;
   word-wrap: break-word;
-  margin-left: 20px;
   width: 120px;
 }
 
@@ -328,9 +327,10 @@ body {
 }
 
 .singleCard {
-  /* height: 200px; */
-  padding-left: 10%;
+
+  padding-left: 18%;
   padding-right: 0px;
+
 }
 
 .suggestions {
