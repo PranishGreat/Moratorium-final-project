@@ -860,72 +860,216 @@ app.post('/admin_auth', urlencodedParser, function (req, res) {
 //Andriod API's
 
 // login Route
+// app.post("/api_auth", urlencodedParser, function (req, res) {
+//   var email = req.body.email;
+//   var pass = req.body.password;
+//   var details=[];
+//   db.collection("moratorium")
+//     .find({ email: email })
+//     .toArray(function (err, doc) {
+//       if (err) throw err;
+//        var detail=[];
+        
+//         for(var i=0;i<doc.length;i++)
+//         {
+//       detail= [{
+//             loan_no: aes256.decrypt(key,doc[i]['loan_no']),
+//             loan_name: doc[i]['loan_name'],
+//             month: doc[i]['month'],
+//             applied_date: doc[i]['applied_date'],
+//             status: doc[i]['status']
+//       }]
+//           details=details.concat(detail);
+//         }    
+//     });
+    
+    
+ 
+//   // Getting details of user
+//   db.collection("user")
+//     .find({ email: email })
+//     .toArray(function (err, result) {
+//       if (err) throw err;
+
+
+//       if(result[0]['status']===false)
+//       {
+//         userdata=result
+//       }
+//       else
+//       {
+//         userdata=[{
+//           username: result[0]['username'],
+//           name: result[0]['name'],
+//           address: result[0]['address'],
+//           mobile: aes256.decrypt(key,result[0]['mobile']),
+//           aadhar: aes256.decrypt(key,result[0]['aadhar']),
+//           bank_name: aes256.decrypt(key,result[0]['bank_name']),
+//           moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc']),
+//           dob: result[0]['dob']
+//         }]
+//       }
+
+//       // userdata = [
+//       //   {
+//       //     _id: result[0]["_id"],
+//       //     username: result[0]["username"],
+//       //     email: result[0]["email"],
+//       //     password: aes256.decrypt(key, result[0]["password"]),
+//       //     status: result[0]["status"],
+//       //     aadhar: aes256.decrypt(key, result[0]["aadhar"]),
+//       //     address: result[0]["address"],
+//       //     bank_name: aes256.decrypt(key, result[0]["bank_name"]),
+//       //     dob: result[0]["dob"],
+//       //     mobile: aes256.decrypt(key, result[0]["mobile"]),
+//       //     moratorium_acc: aes256.decrypt(key, result[0]["moratorium_acc"]),
+//       //     name: result[0]["name"],
+//       //   },
+//       // ];
+//     });
+
+//   //Checking Credentials for User Login
+//   db.collection("user").findOne({ email: email }, function (err, doc) {
+//     if (err) throw err;
+//     if (doc) {
+//       console.log("dec\t" + aes256.decrypt(key, doc.password));
+//       if (aes256.decrypt(key, doc.password) === pass) {
+//         res.send({
+//           login_status: "Success",
+//           userdata: userdata,
+//           details: details,
+//         });
+//       } else {
+//         res.send({ login_status: "Fail" });
+//       }
+//     } else {
+//       console.log(email, pass);
+//       res.send({ login_status: "Fail" });
+//     }
+//   });
+// });
+
+// app.post('/api_update', urlencodedParser, function (req, res) {
+//   var name = req.body.update_name;
+//   var email = req.body.email;
+//   var mobile = aes256.encrypt(key,req.body.update_mobile); 
+//   var aadhar = aes256.encrypt(key,req.body.update_aadhar); 
+//   var bank = aes256.encrypt(key,req.body.update_bank); 
+//   var acc =aes256.encrypt(key,req.body.update_acc); 
+//   var address = req.body.update_address; 
+//   var dob = req.body.update_dob; 
+
+//   var myquery = { email: email };
+//   var newvalues = { $set: {"name":name,"mobile":mobile,"dob":dob,"aadhar":aadhar,"address":address,"moratorium_acc":acc,"bank_name":bank,"status":true } };
+
+//    db.collection('aadhar').findOne({aadhar: aes256.decrypt(key,aadhar)}, function(err, doc){
+//     if (err) throw err;
+//     if(doc)
+//     {
+//       db.collection("user").updateOne(myquery, newvalues, function(err,r) {
+//         if (err) throw err; 
+//         logger.log('info',"Information Updated!!");  
+//       });
+//       res.send({ register_status: "Success" });
+//     }
+//     else
+//     {
+//       res.send({ register_status: "Fail" });
+//     }
+//   });
+// });
+
+// app.post("/api_reg", urlencodedParser, function (req, res) {
+//   var username = req.body.username;
+//   var email = req.body.email1;
+//   var pass = req.body.password;
+//   var status = false;
+//   var encrypted = aes256.encrypt(key, pass);
+//   var data = new userModel({
+//     username: username,
+//     email: email,
+//     password: encrypted,
+//     status: status,
+//   });
+//     db.collection("user").findOne({ email: email }, function (err, doc) {
+//       if (err) throw err;
+//       if (!doc) {
+//         db.collection("user").insertOne(data, function (err, collection) {
+//           if (err) throw err;
+//           console.log(data);
+//           logger.log("info", "Record inserted Successfully");
+//         });
+//         res.send({ register_status: "Success", userdata: data });
+//       } else {
+//         logger.log("info", "Found: " + email);
+//         res.send({ register_status: "Fail,Email already exist!" });
+//       }
+//     });
+// });
+
+
 app.post("/api_auth", urlencodedParser, function (req, res) {
   var email = req.body.email;
   var pass = req.body.password;
-  var details=[];
+  var details = [];
+
+  // Getting details of user
+
+  db.collection("user")
+    .find({ email: email })
+    .toArray(function (err, result) {
+      try {
+        if (err) {
+          console.log(err.message);
+        } else {
+          if (result[0]["status"] === false) {
+            userdata = result;
+          } else {
+            userdata = [
+              {
+                _id: result[0]["_id"],
+                username: result[0]["username"],
+                email: result[0]["email"],
+                password: aes256.decrypt(key, result[0]["password"]),
+                status: result[0]["status"],
+                aadhar: aes256.decrypt(key, result[0]["aadhar"]),
+                address: result[0]["address"],
+                bank_name: aes256.decrypt(key, result[0]["bank_name"]),
+                dob: result[0]["dob"],
+                mobile: aes256.decrypt(key, result[0]["mobile"]),
+                moratorium_acc: aes256.decrypt(
+                  key,
+                  result[0]["moratorium_acc"]
+                ),
+                name: result[0]["name"],
+              },
+            ];
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    });
+
   db.collection("moratorium")
     .find({ email: email })
     .toArray(function (err, doc) {
       if (err) throw err;
-       var detail=[];
-        
-        for(var i=0;i<doc.length;i++)
-        {
-      detail= [{
-            loan_no: aes256.decrypt(key,doc[i]['loan_no']),
-            loan_name: doc[i]['loan_name'],
-            month: doc[i]['month'],
-            applied_date: doc[i]['applied_date'],
-            status: doc[i]['status']
-      }]
-          details=details.concat(detail);
-        }    
-    });
-    
-    
- 
-  // Getting details of user
-  db.collection("user")
-    .find({ email: email })
-    .toArray(function (err, result) {
-      if (err) throw err;
 
+      var detail = [];
 
-      if(result[0]['status']===false)
-      {
-        userdata=result
+      for (var i = 0; i < doc.length; i++) {
+        detail = [
+          {
+            loan_no: aes256.decrypt(key, doc[i]["loan_no"]),
+            loan_name: doc[i]["loan_name"],
+            month: doc[i]["month"],
+            applied_date: doc[i]["applied_date"],
+            status: doc[i]["status"],
+          },
+        ];
+        details = details.concat(detail);
       }
-      else
-      {
-        userdata=[{
-          username: result[0]['username'],
-          name: result[0]['name'],
-          address: result[0]['address'],
-          mobile: aes256.decrypt(key,result[0]['mobile']),
-          aadhar: aes256.decrypt(key,result[0]['aadhar']),
-          bank_name: aes256.decrypt(key,result[0]['bank_name']),
-          moratorium_acc: aes256.decrypt(key,result[0]['moratorium_acc']),
-          dob: result[0]['dob']
-        }]
-      }
-
-      // userdata = [
-      //   {
-      //     _id: result[0]["_id"],
-      //     username: result[0]["username"],
-      //     email: result[0]["email"],
-      //     password: aes256.decrypt(key, result[0]["password"]),
-      //     status: result[0]["status"],
-      //     aadhar: aes256.decrypt(key, result[0]["aadhar"]),
-      //     address: result[0]["address"],
-      //     bank_name: aes256.decrypt(key, result[0]["bank_name"]),
-      //     dob: result[0]["dob"],
-      //     mobile: aes256.decrypt(key, result[0]["mobile"]),
-      //     moratorium_acc: aes256.decrypt(key, result[0]["moratorium_acc"]),
-      //     name: result[0]["name"],
-      //   },
-      // ];
     });
 
   //Checking Credentials for User Login
@@ -949,34 +1093,45 @@ app.post("/api_auth", urlencodedParser, function (req, res) {
   });
 });
 
-app.post('/api_update', urlencodedParser, function (req, res) {
+app.post("/api_update", urlencodedParser, function (req, res) {
   var name = req.body.update_name;
   var email = req.body.email;
-  var mobile = aes256.encrypt(key,req.body.update_mobile); 
-  var aadhar = aes256.encrypt(key,req.body.update_aadhar); 
-  var bank = aes256.encrypt(key,req.body.update_bank); 
-  var acc =aes256.encrypt(key,req.body.update_acc); 
-  var address = req.body.update_address; 
-  var dob = req.body.update_dob; 
+  var mobile = aes256.encrypt(key, req.body.update_mobile);
+  var aadhar = aes256.encrypt(key, req.body.update_aadhar);
+  var bank = aes256.encrypt(key, req.body.update_bank);
+  var acc = aes256.encrypt(key, req.body.update_acc);
+  var address = req.body.update_address;
+  var dob = req.body.update_dob;
 
   var myquery = { email: email };
-  var newvalues = { $set: {"name":name,"mobile":mobile,"dob":dob,"aadhar":aadhar,"address":address,"moratorium_acc":acc,"bank_name":bank,"status":true } };
+  var newvalues = {
+    $set: {
+      name: name,
+      mobile: mobile,
+      dob: dob,
+      aadhar: aadhar,
+      address: address,
+      moratorium_acc: acc,
+      bank_name: bank,
+      status: true,
+    },
+  };
 
-   db.collection('aadhar').findOne({aadhar: aes256.decrypt(key,aadhar)}, function(err, doc){
-    if (err) throw err;
-    if(doc)
-    {
-      db.collection("user").updateOne(myquery, newvalues, function(err,r) {
-        if (err) throw err; 
-        logger.log('info',"Information Updated!!");  
-      });
-      res.send({ register_status: "Success" });
+  db.collection("aadhar").findOne(
+    { aadhar: aes256.decrypt(key, aadhar) },
+    function (err, doc) {
+      if (err) throw err;
+      if (doc) {
+        db.collection("user").updateOne(myquery, newvalues, function (err, r) {
+          if (err) throw err;
+          logger.log("info", "Information Updated!!");
+        });
+        res.send({ register_status: "Success" });
+      } else {
+        res.send({ register_status: "Fail" });
+      }
     }
-    else
-    {
-      res.send({ register_status: "Fail" });
-    }
-  });
+  );
 });
 
 app.post("/api_reg", urlencodedParser, function (req, res) {
@@ -991,23 +1146,21 @@ app.post("/api_reg", urlencodedParser, function (req, res) {
     password: encrypted,
     status: status,
   });
-    db.collection("user").findOne({ email: email }, function (err, doc) {
-      if (err) throw err;
-      if (!doc) {
-        db.collection("user").insertOne(data, function (err, collection) {
-          if (err) throw err;
-          console.log(data);
-          logger.log("info", "Record inserted Successfully");
-        });
-        res.send({ register_status: "Success", userdata: data });
-      } else {
-        logger.log("info", "Found: " + email);
-        res.send({ register_status: "Fail,Email already exist!" });
-      }
-    });
+  db.collection("user").findOne({ email: email }, function (err, doc) {
+    if (err) throw err;
+    if (!doc) {
+      db.collection("user").insertOne(data, function (err, collection) {
+        if (err) throw err;
+        console.log(data);
+        logger.log("info", "Record inserted Successfully");
+      });
+      res.send({ register_status: "Success", userdata: data });
+    } else {
+      logger.log("info", "Found: " + email);
+      res.send({ register_status: "Fail,Email already exist!" });
+    }
+  });
 });
-
-
 
 app.get("/api_news",(req,res)=>{
   var mysort = { time: -1 };
