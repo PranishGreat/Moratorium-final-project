@@ -909,25 +909,6 @@ app.post("/api_auth", urlencodedParser, function (req, res) {
           dob: result[0]['dob']
         }]
       }
-
-      // userdata = [
-      //   {
-      //     _id: result[0]["_id"],
-      //     username: result[0]["username"],
-      //     email: result[0]["email"],
-      //     password: aes256.decrypt(key, result[0]["password"]),
-      //     status: result[0]["status"],
-      //     aadhar: aes256.decrypt(key, result[0]["aadhar"]),
-      //     address: result[0]["address"],
-      //     bank_name: aes256.decrypt(key, result[0]["bank_name"]),
-      //     dob: result[0]["dob"],
-      //     mobile: aes256.decrypt(key, result[0]["mobile"]),
-      //     moratorium_acc: aes256.decrypt(key, result[0]["moratorium_acc"]),
-      //     name: result[0]["name"],
-      //   },
-      // ];
-    });
-
   //Checking Credentials for User Login
   db.collection("user").findOne({ email: email }, function (err, doc) {
     if (err) throw err;
@@ -1019,6 +1000,6 @@ app.get("/api_news",(req,res)=>{
     logout=false;
     res.send({news:result});  
   });
-})
+});
 
 app.get('*', (req, res) => res.render('404.ejs'));
