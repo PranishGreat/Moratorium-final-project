@@ -1070,11 +1070,11 @@ app.post("/api_auth", urlencodedParser, function (req, res) {
         ];
         details = details.concat(detail);
       }
-<<<<<<< HEAD
-=======
+// <<<<<<< HEAD
+// =======
     });
 
->>>>>>> 6c7f7809b1eba937de1fd27760cc8a45ba6438f9
+// >>>>>>> 6c7f7809b1eba937de1fd27760cc8a45ba6438f9
   //Checking Credentials for User Login
   db.collection("user").findOne({ email: email }, function (err, doc) {
     if (err) throw err;
